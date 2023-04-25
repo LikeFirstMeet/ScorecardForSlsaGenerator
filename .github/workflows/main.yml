@@ -34,5 +34,7 @@ jobs:
       - name: Score Repositroies
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: scorecard --repo https://github.com/$GITHUB_REPOSITROY --format json
+        run: |
+          export PATH=$PATH:$GITHUB_WORKSPACE
+          scorecard --repo https://github.com/$GITHUB_REPOSITORY --format json
             
