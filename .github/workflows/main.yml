@@ -34,10 +34,5 @@ jobs:
       - name: Score Repositroies
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-            env
+        run: scorecard --repo https://github.com/$GITHUB_REPOSITROY --format json
             
-            scorecard --repo https://github.com/LikeFirstMeet/$i --format json
-            
-            echo $GH_TOKEN
-          
