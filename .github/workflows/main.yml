@@ -36,6 +36,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           export PATH=$PATH:$GITHUB_WORKSPACE
-          #scorecard --repo https://github.com/$GITHUB_REPOSITORY --format json
-          scorecard --repo https://github.com/LikeFirstMeet/slsa-github-generator --format json
+          scorecard --repo https://github.com/$GITHUB_REPOSITORY --format json
+          #scorecard --repo https://github.com/LikeFirstMeet/slsa-github-generator --format json
             
