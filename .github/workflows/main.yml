@@ -32,10 +32,11 @@ jobs:
           
           
       - name: Score Repositroies
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+#         env:
+#           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           export PATH=$PATH:$GITHUB_WORKSPACE
-          scorecard --repo https://github.com/$GITHUB_REPOSITORY --format json
-          #scorecard --repo https://github.com/LikeFirstMeet/slsa-github-generator --format json
+          export GITHUB_TOKEN=${{ secrets.GH_TOKEN }}
+          #scorecard --repo https://github.com/$GITHUB_REPOSITORY --format json
+          scorecard --repo https://github.com/laiyoufafa/device_soc_allwinner --format json
             
