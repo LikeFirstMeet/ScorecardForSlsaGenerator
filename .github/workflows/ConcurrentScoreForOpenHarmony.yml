@@ -144,9 +144,9 @@ jobs:
           #关闭文件描述读写
           exec 3<&-
           exec 3>&-
-          cat $TMP_FILE_FIRST >> $TARGET_FILE
-          cat $TMP_FILE_SECOND >> $TARGET_FILE
-          cat $TMP_FILE_THIRD >> $TARGET_FILE
+          cat $GITHUB_WORKSPACE/$TMP_FILE_FIRST >> $TARGET_FILE
+          cat $GITHUB_WORKSPACE/$TMP_FILE_SECOND >> $TARGET_FILE
+          cat $GITHUB_WORKSPACE/$TMP_FILE_THIRD >> $TARGET_FILE
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
