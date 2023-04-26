@@ -1,0 +1,106 @@
+name: TestConcurrentScoreForOpenHarmony
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Repo List
+        id: repo
+        uses: yi-Xu-0100/repo-list-generator@v1.1.1
+        with:
+          my_token: ${{ secrets.SCORE_TS }}
+          user: 'laiyoufafa'
+          # (default)max_page: 10
+          # (default)block_list:
+          # (default)allow_empty: false
+          # (default)allow_archived: true
+          
+      # /home/runner/work/ScoreCardActionForOpenHarmony/ScoreCardActionForOpenHarmony
+      # - name: current PATH
+      #  run: pwd
+     
+          
+      - name: Get Scorecard
+        run: |
+          wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
+          tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
+          cp scorecard-linux-amd64 scorecard
+          mv scorecard-linux-amd64 scorecard-second
+          
+          
+      - name: Score Repositroies
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          env
+          # 将scorecard加入环境变量
+          export PATH=$PATH:$GITHUB_WORKSPACE
+          # 用于存储结果文件
+          export TARGET_FILE=/tmp/.github/profile/scores.txt
+          # 下载当前仓库
+          gh repo clone $GITHUB_REPOSITORY /tmp/.github
+          cd /tmp/.github
+          if [ ! -d "profile" ]; then
+            mkdir profile
+          fi
+          if [ -f "$TARGET_FILE" ]; then
+            rm $TARGET_FILE
+          fi
+          touch $TARGET_FILE
+          
+          # 将仓库列表变成数组格式
+          repos=${{steps.repo.outputs.repoList_ALL}}
+          arr=(${repos//,/ })
+          length=${#arr[@]}
+          let half=length/2
+          #计数器
+          count=0 
+          
+          for((i=0;i<half;i++));do
+             if [ $(($i%2)) -eq 0 ]; then
+                export GH_TOKEN=${{ secrets.GH_TOKEN }}
+             else
+                export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
+             fi
+             repoName=https://github.com/laiyoufafa/${arr[$i]}
+             count=$(($count+1))
+             echo "name:first time:${count}    repos_url:${repoName} "
+             str=""
+             str=$(scorecard --repo $repoName --format json)  || 
+             str=$(scorecard --repo $repoName --format json)  ||
+             str=$(scorecard --repo $repoName --format json)  ||
+             str=$(echo "faild on ${repoName}") 
+             echo $str >> $TARGET_FILE  &
+             echo "times:${count} finished"
+          done
+          
+          export TMP_FILE=tmp.txt
+          touch $TMP_FILE
+          for((i=half;i<length;i++));do
+             if [ $(($i%2)) -eq 0 ]; then
+                export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
+             else
+                export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
+             fi
+             repoName=https://github.com/laiyoufafa/${arr[$i]}
+             count=$(($count+1))
+             echo "name:second time:${count}    repos_url:${repoName} "
+             str=""
+             str=$(scorecard-second --repo $repoName --format json)  || 
+             str=$(scorecard-second --repo $repoName --format json)  ||
+             str=$(scorecard-second --repo $repoName --format json)  ||
+             str=$(echo "faild on ${repoName}") 
+             echo $str >> $TMP_FILE &
+             echo "times:${count} finished" 
+          done
+          
+          wait
+          cat $TMP_FILE >> $TARGET_FILE
+          gh auth setup-git -h github.com
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update profile/scores.txt from CI"
+          git push
