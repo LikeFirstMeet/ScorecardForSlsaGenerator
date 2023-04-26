@@ -81,8 +81,8 @@ jobs:
           for((i=0;i<length;i=i+4));do
               read -u3
               {
+                export GH_TOKEN=${{ secrets.GH_TOKEN }}
                 if [ $i -lt $length ];then
-                    export GH_TOKEN=${{ secrets.GH_TOKEN }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -94,9 +94,10 @@ jobs:
                     echo "name:first  ${repoName} finished"
                     sleep 2
                 fi
+                export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
                 i=$(($i+1))
                 if [ $i -lt $length ];then
-                    export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
+                    
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -108,9 +109,10 @@ jobs:
                     echo "name:second  ${repoName} finished"
                     sleep 2
                  fi
+                 export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
                  i=$(($i+1))
                  if [ $i -lt $length ];then
-                    export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
+                    
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -122,9 +124,10 @@ jobs:
                     echo "name third ${repoName} finished"
                     sleep 2
                  fi
+                 export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
                  i=$(($i+1))
                  if [ $i -lt $length ];then
-                    export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
+
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -135,10 +138,10 @@ jobs:
                     echo $str >> $TMP_FILE_THIRD
                     echo "name:fourth ${repoName}  finished"
                     sleep 2
-                  fi
-                  echo >&3
-                  sleep 4
+                 fi
+                 echo >&3
               }&
+                sleep 4
           done
           
           
