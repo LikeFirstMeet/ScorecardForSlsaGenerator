@@ -58,6 +58,17 @@ jobs:
           #计数器
           count=0 
           
+          #1.创建有名管道
+          [ -e ./fd1 ] || mkfifo ./fd1
+          exec 3<> ./fd1
+          rm -rf ./fd1
+          #2.创建令牌
+          for i in `seq 1 2`;
+          do
+            echo >&3
+          done
+          
+          #拿出令牌进行并发操作
           for((i=0;i<half;i++));do
              if [ $(($i%2)) -eq 0 ]; then
                 export GH_TOKEN=${{ secrets.GH_TOKEN }}
@@ -75,6 +86,7 @@ jobs:
                str=$(echo "faild on ${repoName}") 
                echo $str >> $TARGET_FILE 
                echo "times:${count} finished"
+               echo >&3
              }&
           done
           
@@ -97,10 +109,14 @@ jobs:
                str=$(echo "faild on ${repoName}") 
                echo $str >> $TMP_FILE 
                echo "times:${count} finished" 
+               echo >&3
              }&
           done
           
           wait
+          #关闭文件描述读写
+          exec 3<&-
+          exec 3>&-
           cat $TMP_FILE >> $TARGET_FILE
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
