@@ -76,8 +76,7 @@ jobs:
           done
           
           #计数器
-          count=0 
-          index=0
+          export count=0 
           #拿出令牌进行并发操作
           for((i=0;i<length;i=i+4));do
               read -u3
