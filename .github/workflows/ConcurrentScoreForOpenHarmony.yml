@@ -92,6 +92,7 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TARGET_FILE 
                     echo "name:first times:${count} finished"
+                fi
                 i=$(($i+1))
                 if [ $i lt length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
@@ -104,6 +105,7 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_FIRST
                     echo "name:second times:${count} finished"
+                 fi
                  i=$(($i+1))
                  if [ $i lt length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
@@ -115,7 +117,8 @@ jobs:
                     str=$(scorecard-second --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SECOND
-                    echo "name third times:${count} finished"   
+                    echo "name third times:${count} finished"
+                 fi
                  i=$(($i+1))
                  if [ $i lt length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
@@ -128,6 +131,7 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_THIRD
                     echo "name:fourth times:${count} finished"
+                  fi
                  echo >&3
               }&
              sleep 3s
