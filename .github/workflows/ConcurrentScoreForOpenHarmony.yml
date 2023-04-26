@@ -77,7 +77,7 @@ jobs:
              fi
              repoName=https://github.com/laiyoufafa/${arr[$i]}
              count=$(($count+1))
-             echo "time:${count}    repos_url:${repoName} "
+             echo "name:first time:${count}    repos_url:${repoName} "
              read -u3
              {
                str=""
@@ -86,8 +86,9 @@ jobs:
                str=$(scorecard --repo $repoName --format json)  ||
                str=$(echo "faild on ${repoName}") 
                echo $str >> $TARGET_FILE 
-               echo "name first times:${count} finished"
+               echo "times:${count} finished"
                echo >&3
+               sleep 1s
              }&
           done
           
@@ -112,6 +113,7 @@ jobs:
                echo $str >> $TMP_FILE 
                echo "times:${count} finished" 
                echo >&3
+               sleep 1s
              }&
           done
           
