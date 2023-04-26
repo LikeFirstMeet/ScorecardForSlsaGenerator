@@ -82,7 +82,7 @@ jobs:
           for((i=0;i<length;));do
               read -u3
               {
-                if [ $i -lt length ];then
+                if [ $i -lt $length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
@@ -95,7 +95,7 @@ jobs:
                     echo "name:first times:${count} finished"
                 fi
                 i=$(($i+1))
-                if [ $i -lt length ];then
+                if [ $i -lt $length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
@@ -108,7 +108,7 @@ jobs:
                     echo "name:second times:${count} finished"
                  fi
                  i=$(($i+1))
-                 if [ $i -lt length ];then
+                 if [ $i -lt $length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
@@ -121,7 +121,7 @@ jobs:
                     echo "name third times:${count} finished"
                  fi
                  i=$(($i+1))
-                 if [ $i -lt length ];then
+                 if [ $i -lt $length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
