@@ -1,4 +1,4 @@
-name: ScorecardForOpenHarmony
+name: TestScorecardForOpenHarmony
 on:
   workflow_dispatch:
 
