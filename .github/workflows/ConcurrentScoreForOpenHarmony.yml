@@ -86,8 +86,8 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard --repo $repoName --format json)  || 
-                    str=$(scorecard --repo $repoName --format json)  ||
+                    str=$(scorecard --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard --repo $repoName --format json)  || sleep 2|
                     str=$(scorecard --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TARGET_FILE 
@@ -101,8 +101,8 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-first --repo $repoName --format json)  || 
-                    str=$(scorecard-first --repo $repoName --format json)  ||
+                    str=$(scorecard-first --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-first --repo $repoName --format json)  || sleep 2|
                     str=$(scorecard-first --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_FIRST
@@ -116,8 +116,8 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-second --repo $repoName --format json)  || 
-                    str=$(scorecard-second --repo $repoName --format json)  ||
+                    str=$(scorecard-second --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-second --repo $repoName --format json)  || sleep 2|
                     str=$(scorecard-second --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SECOND
@@ -131,8 +131,8 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-third --repo $repoName --format json)  || 
-                    str=$(scorecard-third  --repo $repoName --format json)  ||
+                    str=$(scorecard-third --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-third --repo $repoName --format json)  || sleep 2|
                     str=$(scorecard-third --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_THIRD
