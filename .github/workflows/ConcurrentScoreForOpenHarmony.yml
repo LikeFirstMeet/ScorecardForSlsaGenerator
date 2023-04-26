@@ -154,7 +154,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-fourth--repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-fourth --repo $repoName --format json)  || sleep 2|
                     str=$(scorecard-fourth --repo $repoName --format json)  || sleep 2|
                     str=$(scorecard-fourth --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
