@@ -86,6 +86,7 @@ jobs:
                     export GH_TOKEN=${{ secrets.GH_TOKEN }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
+                    echo "time:${count}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json)  || 
                     str=$(scorecard --repo $repoName --format json)  ||
@@ -99,6 +100,7 @@ jobs:
                     export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
+                    echo "time:${count}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard-first --repo $repoName --format json)  || 
                     str=$(scorecard-first --repo $repoName --format json)  ||
@@ -112,6 +114,7 @@ jobs:
                     export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
+                    echo "time:${count}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard-second --repo $repoName --format json)  || 
                     str=$(scorecard-second --repo $repoName --format json)  ||
@@ -125,6 +128,7 @@ jobs:
                     export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
+                    echo "time:${count}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard-third --repo $repoName --format json)  || 
                     str=$(scorecard-third  --repo $repoName --format json)  ||
