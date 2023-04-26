@@ -70,7 +70,7 @@ jobs:
           exec 3<> ./fd1
           rm -rf ./fd1
           #2.创建令牌
-          for i in `seq 1 2`;
+          for i in `seq 1 137`;
           do
             echo >&3
           done
