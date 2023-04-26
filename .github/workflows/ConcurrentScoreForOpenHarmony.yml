@@ -91,7 +91,7 @@ jobs:
           count=0 
           #拿出令牌进行并发操作
           for((i=0;i<length;i=i+8));do
-              let count++;
+              count=$(($count+1));
               read -u3
               {
                 echo "count value :${count}"
