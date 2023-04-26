@@ -62,38 +62,42 @@ jobs:
              if [ $(($i%2)) -eq 0 ]; then
                 export GH_TOKEN=${{ secrets.GH_TOKEN }}
              else
-                export GH_TOKEN=${{ secrets.SCORE_TS }}
+                export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
              fi
              repoName=https://github.com/laiyoufafa/${arr[$i]}
              count=$(($count+1))
              echo "time:${count}    repos_url:${repoName} "
-             str=""
-             str=$(scorecard --repo $repoName --format json)  || 
-             str=$(scorecard --repo $repoName --format json)  ||
-             str=$(scorecard --repo $repoName --format json)  ||
-             str=$(echo "faild on ${repoName}") 
-             echo $str >> $TARGET_FILE &
-             echo "times:${count} finished" 
+             {
+               str=""
+               str=$(scorecard --repo $repoName --format json)  || 
+               str=$(scorecard --repo $repoName --format json)  ||
+               str=$(scorecard --repo $repoName --format json)  ||
+               str=$(echo "faild on ${repoName}") 
+               echo $str >> $TARGET_FILE 
+               echo "times:${count} finished"
+             }&
           done
           
           export TMP_FILE=tmp.txt
           touch $TMP_FILE
           for((i=half;i<length;i++));do
              if [ $(($i%2)) -eq 0 ]; then
-                export GH_TOKEN=${{ secrets.GH_TOKEN }}
+                export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
              else
-                export GH_TOKEN=${{ secrets.SCORE_TS }}
+                export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
              fi
              repoName=https://github.com/laiyoufafa/${arr[$i]}
              count=$(($count+1))
              echo "time:${count}    repos_url:${repoName} "
-             str=""
-             str=$(scorecard-second --repo $repoName --format json)  || 
-             str=$(scorecard-second --repo $repoName --format json)  ||
-             str=$(scorecard-second --repo $repoName --format json)  ||
-             str=$(echo "faild on ${repoName}") 
-             echo $str >> $TMP_FILE 
-             echo "times:${count} finished" &
+             {
+               str=""
+               str=$(scorecard-second --repo $repoName --format json)  || 
+               str=$(scorecard-second --repo $repoName --format json)  ||
+               str=$(scorecard-second --repo $repoName --format json)  ||
+               str=$(echo "faild on ${repoName}") 
+               echo $str >> $TMP_FILE 
+               echo "times:${count} finished" 
+             }&
           done
           
           wait
