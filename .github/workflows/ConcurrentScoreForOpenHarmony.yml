@@ -241,7 +241,7 @@ jobs:
                  
                  echo >&3
               }&
-              sleep 60
+              sleep 30
           done
           
           
