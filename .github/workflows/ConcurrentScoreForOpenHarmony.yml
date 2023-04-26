@@ -88,12 +88,18 @@ jobs:
           done
           
           #计数器
-          export count=0 
+          count=0 
           #拿出令牌进行并发操作
           for((i=0;i<length;i=i+8));do
+              let count++;
               read -u3
               {
-                export GH_TOKEN=${{ secrets.GH_TOKEN }}
+                echo "count value :${count}"
+                if [ $count%2 -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN }}
+                eles
+                  export GH_TOKEN=${{ secrets.GH_TOKEN9 }}
+                fi
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -105,7 +111,12 @@ jobs:
                     echo $str >> $TARGET_FILE 
                     echo "name:first  ${repoName} finished"
                 fi
-                export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
+                
+                if [ $count%2 -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
+                eles
+                  export GH_TOKEN=${{ secrets.GH_TOKEN10 }}
+                fi
                 i=$(($i+1))
                 if [ $i -lt $length ];then
                     
@@ -119,7 +130,13 @@ jobs:
                     echo $str >>  $TMP_FILE_FIRST
                     echo "name:second  ${repoName} finished"
                  fi
-                 export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
+                 
+                 if [ $count%2 -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
+                 eles
+                  export GH_TOKEN=${{ secrets.GH_TOKEN11 }}
+                 fi
+                 
                  i=$(($i+1))
                  if [ $i -lt $length ];then
                     
@@ -133,7 +150,12 @@ jobs:
                     echo $str >> $TMP_FILE_SECOND
                     echo "name third ${repoName} finished"
                  fi
-                 export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
+                 if [ $count%2 -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
+                 eles
+                  export GH_TOKEN=${{ secrets.GH_TOKEN12 }}
+                 fi
+                 
                  i=$(($i+1))
                  if [ $i -lt $length ];then
 
@@ -147,7 +169,11 @@ jobs:
                     echo $str >> $TMP_FILE_THIRD
                     echo "name:fourth ${repoName}  finished"
                  fi
-                 export GH_TOKEN=${{ secrets.GH_TOKEN5 }}
+                 if [ $count%2 -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN5 }}
+                 eles
+                  export GH_TOKEN=${{ secrets.GH_TOKEN13 }}
+                 fi
                  i=$(($i+1))
                  if [ $i -lt $length ];then
 
@@ -161,7 +187,11 @@ jobs:
                     echo $str >> $TMP_FILE_FOURTH
                     echo "name:fifth ${repoName}  finished"
                  fi
-                 export GH_TOKEN=${{ secrets.GH_TOKEN6 }}
+                 if [ $count%2 -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN6 }}
+                 eles
+                  export GH_TOKEN=${{ secrets.GH_TOKEN14 }}
+                 fi
                  i=$(($i+1))
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -174,7 +204,11 @@ jobs:
                     echo $str >> $TMP_FILE_FIFTH
                     echo "name:sixth  ${repoName} finished"
                 fi
-                export GH_TOKEN=${{ secrets.GH_TOKEN7 }}
+                if [ $count%2 -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN7 }}
+                 eles
+                  export GH_TOKEN=${{ secrets.GH_TOKEN15 }}
+                 fi
                 i=$(($i+1))
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -187,7 +221,11 @@ jobs:
                     echo $str >>  $TMP_FILE_SIXTH
                     echo "name:seventh  ${repoName} finished"
                  fi
-                 export GH_TOKEN=${{ secrets.GH_TOKEN8 }}
+                 if [ $count%2 -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN8 }}
+                 eles
+                  export GH_TOKEN=${{ secrets.GH_TOKEN16 }}
+                 fi
                  i=$(($i+1))
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
