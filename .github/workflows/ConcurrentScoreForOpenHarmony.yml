@@ -26,7 +26,9 @@ jobs:
         run: |
           wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
           tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
-          cp scorecard-linux-amd64 scorecard
+          cp scorecard-linux-amd64 scorecard-first
+          cp scorecard-linux-amd64 scorecard-second
+          cp scorecard-linux-amd64 scorecard-third
           mv scorecard-linux-amd64 scorecard-second
           
           
@@ -54,7 +56,6 @@ jobs:
           repos=${{steps.repo.outputs.repoList_ALL}}
           arr=(${repos//,/ })
           length=${#arr[@]}
-          let half=length/2
           #计数器
           count=0 
           
@@ -68,60 +69,79 @@ jobs:
             echo >&3
           done
           
+          export TMP_FILE_FIRST=tmp1.txt
+          export TMP_FILE_SECOND=tmp2.txt
+          export TMP_FILE_THIRD=tmp3.txt
+          touch $TMP_FILE_FIRST
+          touch $TMP_FILE_SECOND
+          touch $TMP_FILE_THIRD
+          
           #拿出令牌进行并发操作
-          for((i=0;i<half;i++));do
-             if [ $(($i%2)) -eq 0 ]; then
-                export GH_TOKEN=${{ secrets.GH_TOKEN }}
-             else
-                export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
-             fi
-             repoName=https://github.com/laiyoufafa/${arr[$i]}
-             count=$(($count+1))
-             echo "name:first time:${count}    repos_url:${repoName} "
-             read -u3
-             {
-               str=""
-               str=$(scorecard --repo $repoName --format json)  || 
-               str=$(scorecard --repo $repoName --format json)  ||
-               str=$(scorecard --repo $repoName --format json)  ||
-               str=$(echo "faild on ${repoName}") 
-               echo $str >> $TARGET_FILE 
-               echo "times:${count} finished"
-               echo >&3
-             }&
-             sleep 1s
+          for((i=0;i<length;let i=i+4));do
+              read -u3
+              {
+                i=$(($i+1))
+                if [ $i lt length ];then
+                    export GH_TOKEN=${{ secrets.GH_TOKEN }}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    count=$(($count+1))
+                    str=""
+                    str=$(scorecard --repo $repoName --format json)  || 
+                    str=$(scorecard --repo $repoName --format json)  ||
+                    str=$(scorecard --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >> $TARGET_FILE 
+                    echo "name:first times:${count} finished"
+                i=$(($i+1))
+                if [ $i lt length ];then
+                    export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    count=$(($count+1))
+                    str=""
+                    str=$(scorecard-first --repo $repoName --format json)  || 
+                    str=$(scorecard-first --repo $repoName --format json)  ||
+                    str=$(scorecard-first --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >>  $TMP_FILE_FIRST
+                    echo "name:second times:${count} finished"
+                 i=$(($i+1))
+                 if [ $i lt length ];then
+                    export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    count=$(($count+1))
+                    str=""
+                    str=$(scorecard-second --repo $repoName --format json)  || 
+                    str=$(scorecard-second --repo $repoName --format json)  ||
+                    str=$(scorecard-second --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >> $TMP_FILE_SECOND
+                    echo "name third times:${count} finished"   
+                 i=$(($i+1))
+                 if [ $i lt length ];then
+                    export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    count=$(($count+1))
+                    str=""
+                    str=$(scorecard-third --repo $repoName --format json)  || 
+                    str=$(scorecard-third  --repo $repoName --format json)  ||
+                    str=$(scorecard-third --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >> $TMP_FILE_THIRD
+                    echo "name:fourth times:${count} finished"
+                 echo >&3
+              }&
+             sleep 3s
           done
           
-          export TMP_FILE=tmp.txt
-          touch $TMP_FILE
-          for((i=half;i<length;i++));do
-             if [ $(($i%2)) -eq 0 ]; then
-                export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
-             else
-                export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
-             fi
-             repoName=https://github.com/laiyoufafa/${arr[$i]}
-             count=$(($count+1))
-             echo "name:second time:${count}    repos_url:${repoName} "
-             read -u3
-             {
-               str=""
-               str=$(scorecard-second --repo $repoName --format json)  || 
-               str=$(scorecard-second --repo $repoName --format json)  ||
-               str=$(scorecard-second --repo $repoName --format json)  ||
-               str=$(echo "faild on ${repoName}") 
-               echo $str >> $TMP_FILE 
-               echo "times:${count} finished" 
-               echo >&3
-             }&
-             sleep 1s
-          done
+          
           
           wait
           #关闭文件描述读写
           exec 3<&-
           exec 3>&-
-          cat $TMP_FILE >> $TARGET_FILE
+          cat $TMP_FILE_FIRST >> $TARGET_FILE
+          cat $TMP_FILE_SECOND >> $TARGET_FILE
+          cat $TMP_FILE_THIRD >> $TARGET_FILE
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
