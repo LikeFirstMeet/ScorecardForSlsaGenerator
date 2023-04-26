@@ -95,7 +95,7 @@ jobs:
               read -u3
               {
                 echo "count value :${count}"
-                if [ $count%2 -eq 0 ]; then
+                if [ `expr ${count}%2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN }}
                 eles
                   export GH_TOKEN=${{ secrets.GH_TOKEN9 }}
@@ -112,7 +112,7 @@ jobs:
                     echo "name:first  ${repoName} finished"
                 fi
                 
-                if [ $count%2 -eq 0 ]; then
+                if [ `expr ${count}%2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
                 eles
                   export GH_TOKEN=${{ secrets.GH_TOKEN10 }}
@@ -131,7 +131,7 @@ jobs:
                     echo "name:second  ${repoName} finished"
                  fi
                  
-                 if [ $count%2 -eq 0 ]; then
+                 if [ `expr ${count}%2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
                  eles
                   export GH_TOKEN=${{ secrets.GH_TOKEN11 }}
@@ -150,7 +150,7 @@ jobs:
                     echo $str >> $TMP_FILE_SECOND
                     echo "name third ${repoName} finished"
                  fi
-                 if [ $count%2 -eq 0 ]; then
+                 if [ `expr ${count}%2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
                  eles
                   export GH_TOKEN=${{ secrets.GH_TOKEN12 }}
@@ -169,7 +169,7 @@ jobs:
                     echo $str >> $TMP_FILE_THIRD
                     echo "name:fourth ${repoName}  finished"
                  fi
-                 if [ $count%2 -eq 0 ]; then
+                 if [ `expr ${count}%2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN5 }}
                  eles
                   export GH_TOKEN=${{ secrets.GH_TOKEN13 }}
@@ -187,7 +187,7 @@ jobs:
                     echo $str >> $TMP_FILE_FOURTH
                     echo "name:fifth ${repoName}  finished"
                  fi
-                 if [ $count%2 -eq 0 ]; then
+                 if [ `expr ${count}%2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN6 }}
                  eles
                   export GH_TOKEN=${{ secrets.GH_TOKEN14 }}
@@ -204,7 +204,7 @@ jobs:
                     echo $str >> $TMP_FILE_FIFTH
                     echo "name:sixth  ${repoName} finished"
                 fi
-                if [ $count%2 -eq 0 ]; then
+                if [ `expr ${count}%2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN7 }}
                  eles
                   export GH_TOKEN=${{ secrets.GH_TOKEN15 }}
@@ -221,7 +221,7 @@ jobs:
                     echo $str >>  $TMP_FILE_SIXTH
                     echo "name:seventh  ${repoName} finished"
                  fi
-                 if [ $count%2 -eq 0 ]; then
+                 if [ `expr ${count}%2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN8 }}
                  eles
                   export GH_TOKEN=${{ secrets.GH_TOKEN16 }}
