@@ -84,60 +84,56 @@ jobs:
                 if [ $i -lt $length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    count=$(($count+1))
-                    echo "time:${count}    repos_url:${repoName} "
+                    echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json)  || 
                     str=$(scorecard --repo $repoName --format json)  ||
                     str=$(scorecard --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TARGET_FILE 
-                    echo "name:first times:${count} finished"
+                    echo "name:first  ${repoName} finished"
                     sleep 2
                 fi
                 i=$(($i+1))
                 if [ $i -lt $length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    count=$(($count+1))
-                    echo "time:${count}    repos_url:${repoName} "
+                    echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard-first --repo $repoName --format json)  || 
                     str=$(scorecard-first --repo $repoName --format json)  ||
                     str=$(scorecard-first --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_FIRST
-                    echo "name:second times:${count} finished"
+                    echo "name:second  ${repoName} finished"
                     sleep 2
                  fi
                  i=$(($i+1))
                  if [ $i -lt $length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    count=$(($count+1))
-                    echo "time:${count}    repos_url:${repoName} "
+                    echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard-second --repo $repoName --format json)  || 
                     str=$(scorecard-second --repo $repoName --format json)  ||
                     str=$(scorecard-second --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SECOND
-                    echo "name third times:${count} finished"
+                    echo "name third ${repoName} finished"
                     sleep 2
                  fi
                  i=$(($i+1))
                  if [ $i -lt $length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    count=$(($count+1))
-                    echo "time:${count}    repos_url:${repoName} "
+                    echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard-third --repo $repoName --format json)  || 
                     str=$(scorecard-third  --repo $repoName --format json)  ||
                     str=$(scorecard-third --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_THIRD
-                    echo "name:fourth times:${count} finished"
+                    echo "name:fourth ${repoName}  finished"
                     sleep 2
                   fi
               }&
