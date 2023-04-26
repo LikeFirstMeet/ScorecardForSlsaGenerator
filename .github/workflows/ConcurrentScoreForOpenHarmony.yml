@@ -141,7 +141,6 @@ jobs:
                     sleep 2
                   fi
               }&
-             sleep 8s
           done
           
           
