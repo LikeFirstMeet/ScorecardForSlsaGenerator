@@ -77,7 +77,7 @@ jobs:
           touch $TMP_FILE_THIRD
           
           #拿出令牌进行并发操作
-          for((i=0;i<length;let i=i+4));do
+          for((i=0;i<length;));do
               read -u3
               {
                 i=$(($i+1))
