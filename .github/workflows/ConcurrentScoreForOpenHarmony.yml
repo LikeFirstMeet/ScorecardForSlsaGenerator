@@ -159,9 +159,10 @@ jobs:
                     str=$(scorecard-fourth --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FOURTH
-                    echo "name:fourth ${repoName}  finished"
+                    echo "name:fifth ${repoName}  finished"
                  fi
                  export GH_TOKEN=${{ secrets.GH_TOKEN6 }}
+                 i=$(($i+1))
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -171,12 +172,11 @@ jobs:
                     str=$(scorecard-fifth --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FIFTH
-                    echo "name:first  ${repoName} finished"
+                    echo "name:sixth  ${repoName} finished"
                 fi
                 export GH_TOKEN=${{ secrets.GH_TOKEN7 }}
                 i=$(($i+1))
                 if [ $i -lt $length ];then
-                    
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -185,12 +185,11 @@ jobs:
                     str=$(scorecard-sixth --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_SIXTH
-                    echo "name:second  ${repoName} finished"
+                    echo "name:seventh  ${repoName} finished"
                  fi
                  export GH_TOKEN=${{ secrets.GH_TOKEN8 }}
                  i=$(($i+1))
                  if [ $i -lt $length ];then
-                    
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -199,7 +198,7 @@ jobs:
                     str=$(scorecard-seventh --repo $repoName --format json)  ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SEVENTH
-                    echo "name third ${repoName} finished"
+                    echo "name:eighth ${repoName} finished"
                  fi
                  
                  echo >&3
@@ -219,7 +218,7 @@ jobs:
           cat $GITHUB_WORKSPACE/$TMP_FILE_FOURTH >> $TARGET_FILE
           cat $GITHUB_WORKSPACE/$TMP_FILE_FIFTH >> $TARGET_FILE
           cat $GITHUB_WORKSPACE/$TMP_FILE_SIXTH >> $TARGET_FILE
-          cat $GITHUB_WORKSPACE/$TMP_FILE_SEVENTHD >> $TARGET_FILE
+          cat $GITHUB_WORKSPACE/$TMP_FILE_SEVENTH >> $TARGET_FILE
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
