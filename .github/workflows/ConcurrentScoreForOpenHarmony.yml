@@ -204,7 +204,7 @@ jobs:
                     echo $str >> $TMP_FILE_FIFTH
                     echo "name:sixth  ${repoName} finished"
                 fi
-                if [ ( `expr ${count} % 2` -eq 0 ]; then
+                if [ `expr ${count} % 2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN7 }}
                  eles
                   export GH_TOKEN=${{ secrets.GH_TOKEN15 }}
