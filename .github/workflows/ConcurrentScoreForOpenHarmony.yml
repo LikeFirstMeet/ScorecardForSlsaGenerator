@@ -53,7 +53,7 @@ jobs:
           # 将仓库列表变成数组格式
           repos=${{steps.repo.outputs.repoList_ALL}}
           arr=(${repos//,/ })
-          length=${#arr{@}}
+          length=${#arr[@]}
           let half=length/2
           #计数器
           count=0 
