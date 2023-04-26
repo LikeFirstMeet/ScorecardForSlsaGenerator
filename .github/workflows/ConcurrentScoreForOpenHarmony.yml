@@ -97,7 +97,7 @@ jobs:
                 echo "count value :${count}"
                 if [ `expr ${count} % 2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN }}
-                eles
+                else
                   export GH_TOKEN=${{ secrets.GH_TOKEN9 }}
                 fi
                 if [ $i -lt $length ];then
@@ -114,7 +114,7 @@ jobs:
                 
                 if [ `expr ${count} % 2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
-                eles
+                else
                   export GH_TOKEN=${{ secrets.GH_TOKEN10 }}
                 fi
                 i=$(($i+1))
@@ -133,7 +133,7 @@ jobs:
                  
                  if [ `expr ${count} % 2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
-                 eles
+                 else
                   export GH_TOKEN=${{ secrets.GH_TOKEN11 }}
                  fi
                  
@@ -152,7 +152,7 @@ jobs:
                  fi
                  if [ `expr ${count} % 2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
-                 eles
+                 else
                   export GH_TOKEN=${{ secrets.GH_TOKEN12 }}
                  fi
                  
@@ -171,7 +171,7 @@ jobs:
                  fi
                  if [ `expr ${count} % 2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN5 }}
-                 eles
+                 else
                   export GH_TOKEN=${{ secrets.GH_TOKEN13 }}
                  fi
                  i=$(($i+1))
@@ -189,7 +189,7 @@ jobs:
                  fi
                  if [ `expr ${count} % 2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN6 }}
-                 eles
+                 else
                   export GH_TOKEN=${{ secrets.GH_TOKEN14 }}
                  fi
                  i=$(($i+1))
@@ -206,7 +206,7 @@ jobs:
                 fi
                 if [ `expr ${count} % 2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN7 }}
-                 eles
+                else
                   export GH_TOKEN=${{ secrets.GH_TOKEN15 }}
                  fi
                 i=$(($i+1))
@@ -223,7 +223,7 @@ jobs:
                  fi
                  if [ `expr ${count} % 2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN8 }}
-                 eles
+                 else
                   export GH_TOKEN=${{ secrets.GH_TOKEN16 }}
                  fi
                  i=$(($i+1))
