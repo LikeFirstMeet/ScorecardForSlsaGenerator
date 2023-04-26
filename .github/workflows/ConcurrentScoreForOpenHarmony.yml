@@ -41,6 +41,13 @@ jobs:
           export PATH=$PATH:$GITHUB_WORKSPACE
           # 用于存储结果文件
           export TARGET_FILE=/tmp/.github/profile/scores.txt
+          export TMP_FILE_FIRST=tmp1.txt
+          export TMP_FILE_SECOND=tmp2.txt
+          export TMP_FILE_THIRD=tmp3.txt
+          touch $TMP_FILE_FIRST
+          touch $TMP_FILE_SECOND
+          touch $TMP_FILE_THIRD
+          
           # 下载当前仓库
           gh repo clone $GITHUB_REPOSITORY /tmp/.github
           cd /tmp/.github
@@ -69,19 +76,13 @@ jobs:
             echo >&3
           done
           
-          export TMP_FILE_FIRST=tmp1.txt
-          export TMP_FILE_SECOND=tmp2.txt
-          export TMP_FILE_THIRD=tmp3.txt
-          touch $TMP_FILE_FIRST
-          touch $TMP_FILE_SECOND
-          touch $TMP_FILE_THIRD
+         
           
           #拿出令牌进行并发操作
           for((i=0;i<length;));do
               read -u3
               {
-                i=$(($i+1))
-                if [ $i lt length ];then
+                if [ $i -lt length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
@@ -94,7 +95,7 @@ jobs:
                     echo "name:first times:${count} finished"
                 fi
                 i=$(($i+1))
-                if [ $i lt length ];then
+                if [ $i -lt length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
@@ -107,7 +108,7 @@ jobs:
                     echo "name:second times:${count} finished"
                  fi
                  i=$(($i+1))
-                 if [ $i lt length ];then
+                 if [ $i -lt length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
@@ -120,7 +121,7 @@ jobs:
                     echo "name third times:${count} finished"
                  fi
                  i=$(($i+1))
-                 if [ $i lt length ];then
+                 if [ $i -lt length ];then
                     export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     count=$(($count+1))
