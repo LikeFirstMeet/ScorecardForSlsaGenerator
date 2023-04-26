@@ -147,7 +147,7 @@ jobs:
                     echo $str >> $TMP_FILE_THIRD
                     echo "name:fourth ${repoName}  finished"
                  fi
-                 export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
+                 export GH_TOKEN=${{ secrets.GH_TOKEN5 }}
                  i=$(($i+1))
                  if [ $i -lt $length ];then
 
@@ -161,7 +161,7 @@ jobs:
                     echo $str >> $TMP_FILE_FOURTH
                     echo "name:fourth ${repoName}  finished"
                  fi
-                 export GH_TOKEN=${{ secrets.GH_TOKEN }}
+                 export GH_TOKEN=${{ secrets.GH_TOKEN6 }}
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -173,7 +173,7 @@ jobs:
                     echo $str >> $TMP_FILE_FIFTH
                     echo "name:first  ${repoName} finished"
                 fi
-                export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
+                export GH_TOKEN=${{ secrets.GH_TOKEN7 }}
                 i=$(($i+1))
                 if [ $i -lt $length ];then
                     
@@ -187,7 +187,7 @@ jobs:
                     echo $str >>  $TMP_FILE_SIXTH
                     echo "name:second  ${repoName} finished"
                  fi
-                 export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
+                 export GH_TOKEN=${{ secrets.GH_TOKEN8 }}
                  i=$(($i+1))
                  if [ $i -lt $length ];then
                     
