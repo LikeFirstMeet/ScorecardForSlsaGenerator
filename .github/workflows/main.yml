@@ -38,5 +38,5 @@ jobs:
           export PATH=$PATH:$GITHUB_WORKSPACE
           export GITHUB_TOKEN=${{ secrets.GH_TOKEN }}
           #scorecard --repo https://github.com/$GITHUB_REPOSITORY --format json
-          scorecard --repo https://github.com/laiyoufafa/third_party_grpc --format json
+          scorecard --repo https://github.com/laiyoufafa/third_party_grpc --format json --verbosity warn
             
