@@ -32,8 +32,6 @@ jobs:
           
           
       - name: Score Repositroies
-#         env:
-#           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           export PATH=$PATH:$GITHUB_WORKSPACE
           export GITHUB_TOKEN=${{ secrets.GH_TOKEN }}
