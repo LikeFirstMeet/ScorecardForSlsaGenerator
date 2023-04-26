@@ -88,8 +88,8 @@ jobs:
                echo $str >> $TARGET_FILE 
                echo "times:${count} finished"
                echo >&3
-               sleep 1s
              }&
+             sleep 1s
           done
           
           export TMP_FILE=tmp.txt
@@ -113,8 +113,8 @@ jobs:
                echo $str >> $TMP_FILE 
                echo "times:${count} finished" 
                echo >&3
-               sleep 1s
              }&
+             sleep 1s
           done
           
           wait
