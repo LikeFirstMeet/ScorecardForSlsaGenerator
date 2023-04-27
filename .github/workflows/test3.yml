@@ -8,7 +8,6 @@ jobs:
     steps:
       - name: Get Repo List
         run: |
-          arr=(${{secrets.TOKEN1}} ${{secrets.TOKEN2}} ${{secrets.TOKEN3}} ${{secrets.TOKEN4}} ${{secrets.TOKEN5}} ${{secrets.TOKEN6}} ${{secrets.TOKEN7}} ${{secrets.TOKEN8}} ${{secrets.TOKEN9}} ${{secrets.TOKEN10}} ${{secrets.TOKEN11}} ${{secrets.TOKEN12}} ${{secrets.TOKEN13}} ${{secrets.TOKEN14}} ${{secrets.TOKEN15}} ${{secrets.TOKEN16}}
-          ${{secrets.TOKEN17}} ${{secrets.TOKEN18}} ${{secrets.TOKEN19}} ${{secrets.TOKEN20}} ${{secrets.TOKEN21}} ${{secrets.TOKEN22}} ${{secrets.TOKEN23}} ${{secrets.TOKEN24}})
+          arr=(${{secrets.GH_TOKEN1}} ${{secrets.GH_TOKEN2}} ${{secrets.GH_TOKEN3}} ${{secrets.GH_TOKEN4}} ${{secrets.GH_TOKEN5}} ${{secrets.GH_TOKEN6}} ${{secrets.GH_TOKEN7}} ${{secrets.GH_TOKEN8}} ${{secrets.GH_TOKEN9}} ${{secrets.GH_TOKEN10}} ${{secrets.GH_TOKEN11}} ${{secrets.GH_TOKEN12}} ${{secrets.GH_TOKEN13}} ${{secrets.GH_TOKEN14}} ${{secrets.GH_TOKEN15}} ${{secrets.GH_TOKEN16}} ${{secrets.GH_TOKEN17}} ${{secrets.GH_TOKEN18}} ${{secrets.GH_TOKEN19}} ${{secrets.GH_TOKEN20}} ${{secrets.GH_TOKEN21}} ${{secrets.GH_TOKEN22}} ${{secrets.GH_TOKEN23}} ${{secrets.GH_TOKEN24}})
           echo ${#arr[@]}
           echo $arr[3]
