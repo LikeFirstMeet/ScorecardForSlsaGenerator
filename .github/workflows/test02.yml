@@ -130,7 +130,7 @@ jobs:
             {
                 token_number=0
                 ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1))
-                export GH_TOKEN =${{ GH_TOKEN$token_number }}
+                export GH_TOKEN =${{ GH_TOKEN${token_number} }}
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -166,7 +166,7 @@ jobs:
             {
                 token_number=0
                 ((tmp=count_second%3,token_number=tmp*8,token_number=token_number+1))
-                export GH_TOKEN =${{ GH_TOKEN$token_number }}
+                export GH_TOKEN =${{ GH_TOKEN${token_number} }}
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -198,7 +198,7 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3))
-                 export GH_TOKEN =${{ GH_TOKEN$token_number }}
+                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}
                  if [ $i -lt $length ];then
                     
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -232,7 +232,7 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4))
-                 export GH_TOKEN =${{ GH_TOKEN$token_number }}
+                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}
                  if [ $i -lt $length ];then
 
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -265,7 +265,8 @@ jobs:
             read -u5
             {
                  token_number=0
-                 
+                 ((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));
+                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -298,7 +299,7 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6))
-                 export GH_TOKEN =${{ GH_TOKEN$token_number }}
+                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -331,7 +332,7 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7))
-                 export GH_TOKEN =${{ GH_TOKEN$token_number }}
+                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -364,7 +365,7 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8))
-                 export GH_TOKEN =${{ GH_TOKEN$token_number }}    
+                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}    
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
