@@ -92,9 +92,9 @@ jobs:
           #拿出令牌进行并发操作
           for((i=0;i<length;i=i+8));do
               count=$(($count+1));
+              echo "count value :${count}"
               read -u5
               {
-                echo "count value :${count}"
                 if [ `expr ${count} % 2` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN }}
                 else
@@ -113,6 +113,7 @@ jobs:
                 fi
                 echo >&5
               }&
+              echo "name:first"
               read -u5
               {
                 if [ `expr ${count} % 2` -eq 0 ]; then
@@ -134,8 +135,9 @@ jobs:
                     echo "name:second  ${repoName} finished"
                  fi
                  echo >&5
+                 
               }&
-              
+              echo "name:second
               read -u5
               {
                 if [ `expr ${count} % 2` -eq 0 ]; then
@@ -159,7 +161,7 @@ jobs:
                  fi
                  echo >&5
               }&
-              
+              echo "name third"
               read -u5
               {
                  if [ `expr ${count} % 2` -eq 0 ]; then
@@ -183,7 +185,7 @@ jobs:
                  fi
                  echo >&5
               }&
-              
+              echo "name:fourth"
               read -u5
               {
                  if [ `expr ${count} % 2` -eq 0 ]; then
@@ -206,7 +208,7 @@ jobs:
                  fi
                  echo >&5
               }&
-              
+              echo "name:fifth"
               read -u5
               {
                  if [ `expr ${count} % 2` -eq 0 ]; then
@@ -228,7 +230,7 @@ jobs:
                  fi
                  echo >&5
               }&
-              
+              echo "name:sixth"
               read -u5
               {
                  if [ `expr ${count} % 2` -eq 0 ]; then
@@ -250,7 +252,7 @@ jobs:
                  fi
                  echo >&5
               }&
-              
+              echo "name:seventh"
               read -u5
               {
                  if [ `expr ${count} % 2` -eq 0 ]; then
@@ -272,6 +274,7 @@ jobs:
                  fi
                  echo >&5
               }&
+              echo "name:eighth"
               sleep 30
           done
           
