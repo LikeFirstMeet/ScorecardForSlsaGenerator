@@ -8,7 +8,6 @@ jobs:
     steps:
       - name: Get Repo List
         run: |
-          a=5
-          name='{secrets.GH_TOKEN${a}}'
-          echo name
-          export GH_TOKEN = ${$name}
+          a=1
+          GH_TOKEN1 = ${{secrets.GH_TOKEN}}
+          echo $(GH_TOKEN$a)
