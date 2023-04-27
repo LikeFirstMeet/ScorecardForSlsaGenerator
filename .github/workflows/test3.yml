@@ -10,4 +10,5 @@ jobs:
         run: |
           a=1
           GH_TOKEN1 = ${{secrets.GH_TOKEN}}
-          echo $(GH_TOKEN$a)
+          name=GH_TOKEN$a
+          echo $name
