@@ -110,10 +110,12 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TARGET_FILE 
                     echo "name:first  ${repoName} finished"
+                    echo >&5
                 fi
-                echo >&5
+                
               }&
               echo "name:first"
+              i=$(($i+1))
               read -u5
               {
                 if [ `expr ${count} % 2` -eq 0 ]; then
@@ -121,7 +123,7 @@ jobs:
                 else
                   export GH_TOKEN=${{ secrets.GH_TOKEN10 }}
                 fi
-                i=$(($i+1))
+                
                 if [ $i -lt $length ];then
                     
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -133,11 +135,11 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_FIRST
                     echo "name:second  ${repoName} finished"
+                    echo >&5
                  fi
-                 echo >&5
-                 
               }&
               echo "name:second"
+              i=$(($i+1))
               read -u5
               {
                 if [ `expr ${count} % 2` -eq 0 ]; then
@@ -146,7 +148,6 @@ jobs:
                   export GH_TOKEN=${{ secrets.GH_TOKEN11 }}
                  fi
                  
-                 i=$(($i+1))
                  if [ $i -lt $length ];then
                     
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -158,10 +159,12 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SECOND
                     echo "name third ${repoName} finished"
+                    echo >&5
                  fi
-                 echo >&5
+                 
               }&
               echo "name third"
+              i=$(($i+1))
               read -u5
               {
                  if [ `expr ${count} % 2` -eq 0 ]; then
@@ -170,7 +173,7 @@ jobs:
                   export GH_TOKEN=${{ secrets.GH_TOKEN12 }}
                  fi
                  
-                 i=$(($i+1))
+                 
                  if [ $i -lt $length ];then
 
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -182,10 +185,12 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_THIRD
                     echo "name:fourth ${repoName}  finished"
+                    echo >&5
                  fi
-                 echo >&5
+                 
               }&
               echo "name:fourth"
+              i=$(($i+1))
               read -u5
               {
                  if [ `expr ${count} % 2` -eq 0 ]; then
@@ -195,7 +200,6 @@ jobs:
                  fi
                  i=$(($i+1))
                  if [ $i -lt $length ];then
-
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -205,10 +209,12 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FOURTH
                     echo "name:fifth ${repoName}  finished"
+                    echo >&5
                  fi
-                 echo >&5
+                 
               }&
               echo "name:fifth"
+              i=$(($i+1))
               read -u5
               {
                  if [ `expr ${count} % 2` -eq 0 ]; then
@@ -216,7 +222,7 @@ jobs:
                  else
                   export GH_TOKEN=${{ secrets.GH_TOKEN14 }}
                  fi
-                 i=$(($i+1))
+
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -227,10 +233,12 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FIFTH
                     echo "name:sixth  ${repoName} finished"
+                    echo >&5
                  fi
-                 echo >&5
+                 
               }&
               echo "name:sixth"
+              i=$(($i+1))
               read -u5
               {
                  if [ `expr ${count} % 2` -eq 0 ]; then
@@ -238,7 +246,7 @@ jobs:
                 else
                   export GH_TOKEN=${{ secrets.GH_TOKEN15 }}
                  fi
-                i=$(($i+1))
+                
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -249,10 +257,12 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_SIXTH
                     echo "name:seventh  ${repoName} finished"
+                    echo >&5
                  fi
-                 echo >&5
+                 
               }&
               echo "name:seventh"
+              i=$(($i+1))
               read -u5
               {
                  if [ `expr ${count} % 2` -eq 0 ]; then
@@ -260,7 +270,7 @@ jobs:
                  else
                   export GH_TOKEN=${{ secrets.GH_TOKEN16 }}
                  fi
-                 i=$(($i+1))
+                 
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -271,8 +281,9 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SEVENTH
                     echo "name:eighth ${repoName} finished"
+                    echo >&5
                  fi
-                 echo >&5
+                 
               }&
               echo "name:eighth"
               sleep 30
