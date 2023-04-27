@@ -210,7 +210,7 @@ jobs:
                   echo "5 use 5"
                  else
                   export GH_TOKEN=${{ secrets.GH_TOKEN13 }}
-                  echo "1 use 13"
+                  echo "5 use 13"
                  fi
                  i=$(($i+1))
                  if [ $i -lt $length ];then
