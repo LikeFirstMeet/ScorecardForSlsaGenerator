@@ -137,7 +137,7 @@ jobs:
                  echo >&5
                  
               }&
-              echo "name:second
+              echo "name:second"
               read -u5
               {
                 if [ `expr ${count} % 2` -eq 0 ]; then
