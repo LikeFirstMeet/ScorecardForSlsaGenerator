@@ -1,4 +1,4 @@
-name: ConcurrentScoreForOpenHarmony
+name: TestConcurrentScoreForOpenHarmony
 on:
   workflow_dispatch:
 
