@@ -110,6 +110,7 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TARGET_FILE 
                     echo "name:first  ${repoName} finished"
+                    sleep 60s
                     echo >&5
                 fi
                 
@@ -135,6 +136,7 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_FIRST
                     echo "name:second  ${repoName} finished"
+                    sleep 60s
                     echo >&5
                  fi
               }&
@@ -159,6 +161,7 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SECOND
                     echo "name third ${repoName} finished"
+                    sleep 60s
                     echo >&5
                  fi
                  
@@ -185,6 +188,7 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_THIRD
                     echo "name:fourth ${repoName}  finished"
+                    sleep 60s
                     echo >&5
                  fi
                  
@@ -209,6 +213,7 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FOURTH
                     echo "name:fifth ${repoName}  finished"
+                    sleep 60s
                     echo >&5
                  fi
                  
@@ -233,6 +238,7 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FIFTH
                     echo "name:sixth  ${repoName} finished"
+                    sleep 60s
                     echo >&5
                  fi
                  
@@ -257,6 +263,7 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_SIXTH
                     echo "name:seventh  ${repoName} finished"
+                    sleep 60s
                     echo >&5
                  fi
                  
@@ -281,12 +288,12 @@ jobs:
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SEVENTH
                     echo "name:eighth ${repoName} finished"
+                    sleep 60s
                     echo >&5
                  fi
                  
               }&
               echo "name:eighth"
-              sleep 60
           done
           
           
