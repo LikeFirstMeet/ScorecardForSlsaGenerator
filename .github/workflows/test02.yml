@@ -119,39 +119,8 @@ jobs:
           count_sixth=0 
           count_seventh=0 
           count_eighth=0 
-          #拿出令牌进行并发操作
-          for((i=0;i<length;i=i+8));do
-            count_first=$(($count_first+1));
-            count=$(($count+1));
-            echo "count value :${count}"
-            read -u1
-            {
-                if [ `expr ${count_first} % 2` -eq 0 ]; then
-                  export GH_TOKEN=${{ secrets.GH_TOKEN }}
-                  echo "1 use 1"
-                else
-                  export GH_TOKEN=${{ secrets.GH_TOKEN9 }}
-                  echo "1 use 9"
-                fi
-                if [ $i -lt $length ];then
-                    repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    echo "time:${i}    repos_url:${repoName} "
-                    str=""
-                    str=$(scorecard --repo $repoName --format json)  || (sleep 60 && export GH_TOKEN=${{ secrets.GH_TOKEN17 }} &&
-                    str=$(scorecard --repo $repoName --format json)) || (sleep 60 && export GH_TOKEN=${{ secrets.GH_TOKEN17 }} &&
-                    str=$(scorecard --repo $repoName --format json)) ||
-                    str=$(echo "faild on ${repoName}") 
-                    echo $str >> $TARGET_FILE 
-                    echo "name:first  ${repoName} finished"
-                    sleep 60s
-                    echo >&1
-                fi
-                
-              }&
-              echo "name:first"
-          done
           
-          #分配token函数
+           #分配token函数
           function getToken()
           {
               thread_no=$1
@@ -172,28 +141,66 @@ jobs:
           }
           
           
+          #拿出令牌进行并发操作
+          for((i=0;i<length;i=i+8));do
+            count_first=$(($count_first+1));
+            count=$(($count+1));
+            echo "count value :${count}"
+            read -u1
+            {
+                token_number=0
+                ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1))
+                export GH_TOKEN =${{ GH_TOKEN$token_number }}
+                if [ $i -lt $length ];then
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json)  
+                    || 
+                      (sleep 60 
+                      && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                      && str=$(scorecard --repo $repoName --format json)) 
+                    || 
+                      (sleep 60 
+                     && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                     && str=$(scorecard --repo $repoName --format json))  
+                    ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >> $TARGET_FILE 
+                    echo "name:first  ${repoName} finished"
+                    sleep 60s
+                    echo >&1
+                fi
+                
+              }&
+              echo "name:first"
+          done
+          
+          
+          
           for((i=1;i<length;i=i+8));do
             count_second=$(($count_second+1));
             count=$(($count+1));
             echo "count value :${count}"
             read -u2
             {
-                if [ `expr ${count_second} % 2` -eq 0 ]; then
-                  export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
-                   echo "2 use 2"
-                else
-                  export GH_TOKEN=${{ secrets.GH_TOKEN10 }}
-                   echo "2 use 10"
-                fi
-                
+                token_number=0
+                ((tmp=count_second%3,token_number=tmp*8,token_number=token_number+1))
+                export GH_TOKEN =${{ GH_TOKEN$token_number }}
                 if [ $i -lt $length ];then
-                    
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-first --repo $repoName --format json)   || (sleep 60 && export GH_TOKEN=${{ secrets.GH_TOKEN18 }} &&
-                    str=$(scorecard-first --repo $repoName --format json))  || (sleep 60 && export GH_TOKEN=${{ secrets.GH_TOKEN18 }} &&
-                    str=$(scorecard-first --repo $repoName --format json))  ||
+                    str=$(scorecard-first --repo $repoName --format json)   
+                    || 
+                      (sleep 60 
+                      && { count_second=$(($count_second+1));;((tmp=count_second%3,token_number=tmp*8,token_number=token_number+2));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                      && str=$(scorecard-first --repo $repoName --format json))  
+                    || 
+                      (sleep 60 
+                      && { count_second=$(($count_second+1));;((tmp=count_second%3,token_number=tmp*8,token_number=token_number+2));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                      && str=$(scorecard-first --repo $repoName --format json))
+                    ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_FIRST
                     echo "name:second  ${repoName} finished"
@@ -209,22 +216,24 @@ jobs:
             echo "count value :${count}"
             read -u3
             {
-                 if [ `expr ${count_third} % 2` -eq 0 ]; then
-                  export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
-                   echo "3 use 3"
-                 else
-                  export GH_TOKEN=${{ secrets.GH_TOKEN11 }}
-                   echo "3 use 11"
-                 fi
-                 
+                 token_number=0
+                 ((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3))
+                 export GH_TOKEN =${{ GH_TOKEN$token_number }}
                  if [ $i -lt $length ];then
                     
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-second --repo $repoName --format json)  || (sleep 60 &&   export GH_TOKEN=${{ secrets.GH_TOKEN19 }} &&
-                    str=$(scorecard-second --repo $repoName --format json)) || (sleep 60 &&   export GH_TOKEN=${{ secrets.GH_TOKEN19 }} &&
-                    str=$(scorecard-second --repo $repoName --format json)) ||
+                    str=$(scorecard-second --repo $repoName --format json)  
+                    || 
+                    (sleep 60 
+                    && { count_third=$(($count_third+1));((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    && str=$(scorecard-second --repo $repoName --format json)) 
+                    || 
+                    (sleep 60 
+                    && { count_third=$(($count_third+1));((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    && str=$(scorecard-second --repo $repoName --format json)) 
+                    ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SECOND
                     echo "name third ${repoName} finished"
@@ -241,23 +250,24 @@ jobs:
             echo "count value :${count}"
             read -u4
             {
-                 if [ `expr ${count_fourth} % 2` -eq 0 ]; then
-                  export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
-                  echo "4 use 4"
-                 else
-                  export GH_TOKEN=${{ secrets.GH_TOKEN12 }}
-                  echo "4 use 12"
-                 fi
-                 
-                 
+                 token_number=0
+                 ((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4))
+                 export GH_TOKEN =${{ GH_TOKEN$token_number }}
                  if [ $i -lt $length ];then
 
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-third --repo $repoName --format json)  || (sleep 60 &&   export GH_TOKEN=${{ secrets.GH_TOKEN20 }} &&
-                    str=$(scorecard-third --repo $repoName --format json)) || (sleep 60 &&   export GH_TOKEN=${{ secrets.GH_TOKEN20 }} &&
-                    str=$(scorecard-third --repo $repoName --format json)) ||
+                    str=$(scorecard-third --repo $repoName --format json)  
+                    || 
+                    (sleep 60 
+                    &&  { count_fourth=$(($count_fourth+1));((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    &&  str=$(scorecard-third --repo $repoName --format json)) 
+                    || 
+                    (sleep 60 
+                    &&  { count_fourth=$(($count_fourth+1));((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    &&  str=$(scorecard-third --repo $repoName --format json)) 
+                    ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_THIRD
                     echo "name:fourth ${repoName}  finished"
@@ -274,21 +284,22 @@ jobs:
             echo "count value :${count}"
             read -u5
             {
-                 if [ `expr ${count_fifth} % 2` -eq 0 ]; then
-                  export GH_TOKEN=${{ secrets.GH_TOKEN5 }}
-                  echo "5 use 5"
-                 else
-                  export GH_TOKEN=${{ secrets.GH_TOKEN13 }}
-                  echo "5 use 13"
-                 fi
-                 i=$(($i+1))
+                 token_number=0
+                 
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-fourth --repo $repoName --format json)  || (sleep 60 &&   export GH_TOKEN=${{ secrets.GH_TOKEN21 }} &&
-                    str=$(scorecard-fourth --repo $repoName --format json)) || (sleep 60 &&   export GH_TOKEN=${{ secrets.GH_TOKEN21 }} &&
-                    str=$(scorecard-fourth --repo $repoName --format json)) ||
+                    str=$(scorecard-fourth --repo $repoName --format json)  
+                    || 
+                    (sleep 60 
+                    &&  { count_fifth=$(($count_fifth+1));;((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    &&  str=$(scorecard-fourth --repo $repoName --format json)) 
+                    || 
+                   (sleep 60 
+                    &&  { count_fifth=$(($count_fifth+1));;((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    &&  str=$(scorecard-fourth --repo $repoName --format json)) 
+                    ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FOURTH
                     echo "name:fifth ${repoName}  finished"
@@ -305,21 +316,23 @@ jobs:
             echo "count value :${count}"
             read -u6
             {
-                 if [ `expr ${count_sixth} % 2` -eq 0 ]; then
-                  export GH_TOKEN=${{ secrets.GH_TOKEN6 }}
-                  echo "6 use 6"
-                 else
-                  export GH_TOKEN=${{ secrets.GH_TOKEN14 }}
-                  echo "6 use 14"
-                 fi
-
+                 token_number=0
+                 ((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6))
+                 export GH_TOKEN =${{ GH_TOKEN$token_number }}
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-fifth --repo $repoName --format json)  || (sleep 60 &&   export GH_TOKEN=${{ secrets.GH_TOKEN22 }} &&
-                    str=$(scorecard-fifth --repo $repoName --format json)) || (sleep 60 &&   export GH_TOKEN=${{ secrets.GH_TOKEN22 }} &&
-                    str=$(scorecard-fifth --repo $repoName --format json)) ||
+                    str=$(scorecard-fifth --repo $repoName --format json)  
+                    || 
+                    (sleep 60 
+                    &&   { count_sixth=$(($count_sixth+1));((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    && str=$(scorecard-fifth --repo $repoName --format json)) 
+                    || 
+                    (sleep 60 
+                    &&   { count_sixth=$(($count_sixth+1));((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    && str=$(scorecard-fifth --repo $repoName --format json)) 
+                    ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FIFTH
                     echo "name:sixth  ${repoName} finished"
@@ -336,21 +349,23 @@ jobs:
             echo "count value :${count}"
             read -u7
             {
-                 if [ `expr ${count_seventh} % 2` -eq 0 ]; then
-                  export GH_TOKEN=${{ secrets.GH_TOKEN7 }}
-                  echo "7 use 7"
-                 else
-                  export GH_TOKEN=${{ secrets.GH_TOKEN15 }}
-                  echo "7 use 15"
-                 fi
-                
+                 token_number=0
+                 ((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7))
+                 export GH_TOKEN =${{ GH_TOKEN$token_number }}
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-sixth --repo $repoName --format json)  || (sleep 60 &&   export GH_TOKEN=${{ secrets.GH_TOKEN23 }} &&
-                    str=$(scorecard-sixth --repo $repoName --format json)) || (sleep 60 &&   export GH_TOKEN=${{ secrets.GH_TOKEN23 }} &&
-                    str=$(scorecard-sixth --repo $repoName --format json)) ||
+                    str=$(scorecard-sixth --repo $repoName --format json)  
+                    || 
+                    (sleep 60 
+                    && { count_seventh=$(($count_seventh+1));((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    && str=$(scorecard-sixth --repo $repoName --format json)) 
+                    || 
+                    (sleep 60 
+                    && { count_seventh=$(($count_seventh+1));((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    && str=$(scorecard-sixth --repo $repoName --format json)) 
+                    ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_SIXTH
                     echo "name:seventh  ${repoName} finished"
@@ -367,21 +382,23 @@ jobs:
             echo "count value :${count}"
             read -u8
             {
-                 if [ `expr ${count_eighth} % 2` -eq 0 ]; then
-                  export GH_TOKEN=${{ secrets.GH_TOKEN8 }}
-                  echo "8 use 8"
-                 else
-                  export GH_TOKEN=${{ secrets.GH_TOKEN16 }}
-                  echo "8 use 16"
-                 fi
-                 
+                 token_number=0
+                 ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8))
+                 export GH_TOKEN =${{ GH_TOKEN$token_number }}    
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-seventh --repo $repoName --format json)  || (sleep 60 &&  export GH_TOKEN=${{ secrets.GH_TOKEN24 }} &&
-                    str=$(scorecard-seventh --repo $repoName --format json)) || (sleep 60 &&  export GH_TOKEN=${{ secrets.GH_TOKEN24 }} &&
-                    str=$(scorecard-seventh --repo $repoName --format json)) ||
+                    str=$(scorecard-seventh --repo $repoName --format json)  
+                    || 
+                    (sleep 60 
+                    &&  { count_eighth=$(($count_eighth+1)); ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    && str=$(scorecard-seventh --repo $repoName --format json)) 
+                    || 
+                     (sleep 60 
+                    &&  { count_eighth=$(($count_eighth+1)); ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    && str=$(scorecard-seventh --repo $repoName --format json))
+                    ||
                     str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SEVENTH
                     echo "name:eighth ${repoName} finished"
