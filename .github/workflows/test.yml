@@ -82,7 +82,7 @@ jobs:
           exec 5<> ./fd1
           rm -rf ./fd1
           #2.创建令牌
-          for i in `seq 1 5`;
+          for i in `seq 1 8`;
           do
             echo >&5
           done
@@ -286,7 +286,7 @@ jobs:
                  
               }&
               echo "name:eighth"
-              sleep 30
+              sleep 60
           done
           
           
