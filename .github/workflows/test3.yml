@@ -1,4 +1,4 @@
-name: Test2
+name: Test3
 on:
   workflow_dispatch:
 
@@ -9,4 +9,4 @@ jobs:
       - name: Get Repo List
         run: |
           a=5
-          export GH_TOKEN = ${{ GH_TOKEN$a }}
+          export GH_TOKEN = ${{ GH_TOKEN }}$a
