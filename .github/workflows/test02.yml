@@ -138,11 +138,11 @@ jobs:
                     str=$(scorecard --repo $repoName --format json)  
                     || 
                       (sleep 60 
-                      && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                      && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
                       && str=$(scorecard --repo $repoName --format json)) 
                     || 
                       (sleep 60 
-                     && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                     && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));export GH_TOKEN =${{ GH_TOKEN$${token_number} }} } 
                      && str=$(scorecard --repo $repoName --format json))  
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -174,11 +174,11 @@ jobs:
                     str=$(scorecard-first --repo $repoName --format json)   
                     || 
                       (sleep 60 
-                      && { count_second=$(($count_second+1));;((tmp=count_second%3,token_number=tmp*8,token_number=token_number+2));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                      && { count_second=$(($count_second+1));;((tmp=count_second%3,token_number=tmp*8,token_number=token_number+2));export GH_TOKEN =${{ GH_TOKEN$${token_number} }} }
                       && str=$(scorecard-first --repo $repoName --format json))  
                     || 
                       (sleep 60 
-                      && { count_second=$(($count_second+1));;((tmp=count_second%3,token_number=tmp*8,token_number=token_number+2));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                      && { count_second=$(($count_second+1));;((tmp=count_second%3,token_number=tmp*8,token_number=token_number+2));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
                       && str=$(scorecard-first --repo $repoName --format json))
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -207,11 +207,11 @@ jobs:
                     str=$(scorecard-second --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    && { count_third=$(($count_third+1));((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    && { count_third=$(($count_third+1));((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
                     && str=$(scorecard-second --repo $repoName --format json)) 
                     || 
                     (sleep 60 
-                    && { count_third=$(($count_third+1));((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    && { count_third=$(($count_third+1));((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
                     && str=$(scorecard-second --repo $repoName --format json)) 
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -241,11 +241,11 @@ jobs:
                     str=$(scorecard-third --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    &&  { count_fourth=$(($count_fourth+1));((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    &&  { count_fourth=$(($count_fourth+1));((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
                     &&  str=$(scorecard-third --repo $repoName --format json)) 
                     || 
                     (sleep 60 
-                    &&  { count_fourth=$(($count_fourth+1));((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    &&  { count_fourth=$(($count_fourth+1));((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
                     &&  str=$(scorecard-third --repo $repoName --format json)) 
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -273,11 +273,11 @@ jobs:
                     str=$(scorecard-fourth --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    &&  { count_fifth=$(($count_fifth+1));;((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    &&  { count_fifth=$(($count_fifth+1));;((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
                     &&  str=$(scorecard-fourth --repo $repoName --format json)) 
                     || 
                    (sleep 60 
-                    &&  { count_fifth=$(($count_fifth+1));;((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    &&  { count_fifth=$(($count_fifth+1));;((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
                     &&  str=$(scorecard-fourth --repo $repoName --format json)) 
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -306,11 +306,11 @@ jobs:
                     str=$(scorecard-fifth --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    &&   { count_sixth=$(($count_sixth+1));((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    &&   { count_sixth=$(($count_sixth+1));((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
                     && str=$(scorecard-fifth --repo $repoName --format json)) 
                     || 
                     (sleep 60 
-                    &&   { count_sixth=$(($count_sixth+1));((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    &&   { count_sixth=$(($count_sixth+1));((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
                     && str=$(scorecard-fifth --repo $repoName --format json)) 
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -339,11 +339,11 @@ jobs:
                     str=$(scorecard-sixth --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    && { count_seventh=$(($count_seventh+1));((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    && { count_seventh=$(($count_seventh+1));((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
                     && str=$(scorecard-sixth --repo $repoName --format json)) 
                     || 
                     (sleep 60 
-                    && { count_seventh=$(($count_seventh+1));((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7));export GH_TOKEN =${{ GH_TOKEN$token_number }} } 
+                    && { count_seventh=$(($count_seventh+1));((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
                     && str=$(scorecard-sixth --repo $repoName --format json)) 
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -372,11 +372,11 @@ jobs:
                     str=$(scorecard-seventh --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    &&  { count_eighth=$(($count_eighth+1)); ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    &&  { count_eighth=$(($count_eighth+1)); ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
                     && str=$(scorecard-seventh --repo $repoName --format json)) 
                     || 
                      (sleep 60 
-                    &&  { count_eighth=$(($count_eighth+1)); ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8));export GH_TOKEN =${{ GH_TOKEN$token_number }} }
+                    &&  { count_eighth=$(($count_eighth+1)); ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
                     && str=$(scorecard-seventh --repo $repoName --format json))
                     ||
                     str=$(echo "faild on ${repoName}") 
