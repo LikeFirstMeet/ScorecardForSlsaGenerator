@@ -120,26 +120,6 @@ jobs:
           count_seventh=0 
           count_eighth=0 
           
-           #分配token函数
-          function getToken()
-          {
-              thread_no=$1
-              lastToken_no=$2
-              result=0
-              ((tmp=lastToken_no%3,result=tmp*8))
-              case $thread_no in
-                      1)result=`expr $result + 1`;;
-                      2)result=`expr $result + 2`;;
-                      3)result=`expr $result + 3`;;
-                      4)result=`expr $result + 4`;;
-                      5)result=`expr $result + 5`;;
-                      6)result=`expr $result + 6`;;
-                      7)result=`expr $result + 7`;;
-                      8)result=`expr $result + 8`;;
-              esac
-              return $result
-          }
-          
           
           #拿出令牌进行并发操作
           for((i=0;i<length;i=i+8));do
