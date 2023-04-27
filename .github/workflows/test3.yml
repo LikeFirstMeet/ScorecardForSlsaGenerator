@@ -9,4 +9,4 @@ jobs:
       - name: Get Repo List
         run: |
           a=5
-          export GH_TOKEN = ${{ secrets.GH_TOKEN }}$a
+          export GH_TOKEN = ${{ secrets.GH_TOKEN(($a)) }}
