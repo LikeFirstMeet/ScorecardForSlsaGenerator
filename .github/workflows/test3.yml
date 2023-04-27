@@ -1,0 +1,12 @@
+name: Test2
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Repo List
+        run: |
+          a=5
+          export GH_TOKEN = ${{ GH_TOKEN$a }}
