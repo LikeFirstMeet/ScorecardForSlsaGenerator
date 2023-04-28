@@ -364,7 +364,6 @@ jobs:
                  else
                       export GH_TOKEN =${{ secrets.GH_TOKEN21}}
                  fi
-                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
