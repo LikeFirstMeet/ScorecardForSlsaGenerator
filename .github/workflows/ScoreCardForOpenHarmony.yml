@@ -54,9 +54,9 @@ jobs:
           count=0
           for i in ${arr[@]};do
              if [ $(($count%2)) -eq 0 ]; then
-                export GH_TOKEN=${{ secrets.GH_TOKEN }}
+                export GH_TOKEN=${{ secrets.GH_TOKEN1 }}
              else
-                export GH_TOKEN=${{ secrets.SCORE_TS }}
+                export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
              fi
              repoName=https://github.com/laiyoufafa/$i
              count=$(($count+1))
