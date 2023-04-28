@@ -130,7 +130,13 @@ jobs:
             {
                 token_number=0
                 ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1))
-                export GH_TOKEN =${{ GH_TOKEN${token_number} }}
+                if [ token_number -eq 1 ];then
+                  export GH_TOKEN =${{ secrets.GH_TOKEN1}}
+                elif [ token_number -eq 9 ];then
+                  export GH_TOKEN =${{ secrets.GH_TOKEN9}}
+                else
+                  export GH_TOKEN =${{ secrets.GH_TOKEN17}}
+                fi
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -138,11 +144,27 @@ jobs:
                     str=$(scorecard --repo $repoName --format json)  
                     || 
                       (sleep 60 
-                      && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
+                      && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));
+                      if [ token_number -eq 1 ];then
+                        export GH_TOKEN =${{ secrets.GH_TOKEN1}}
+                      elif [ token_number -eq 9 ];then
+                        export GH_TOKEN =${{ secrets.GH_TOKEN9}}
+                      else
+                        export GH_TOKEN =${{ secrets.GH_TOKEN17}}
+                      fi
+                      } 
                       && str=$(scorecard --repo $repoName --format json)) 
                     || 
                       (sleep 60 
-                     && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));export GH_TOKEN =${{ GH_TOKEN$${token_number} }} } 
+                     && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));
+                     if [ token_number -eq 1];then
+                        export GH_TOKEN =${{ secrets.GH_TOKEN1}};
+                      elif [ token_number -eq 9 ];then
+                        export GH_TOKEN =${{ secrets.GH_TOKEN9}};
+                      else
+                        export GH_TOKEN =${{ secrets.GH_TOKEN17}};
+                      fi
+                     } 
                      && str=$(scorecard --repo $repoName --format json))  
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -166,7 +188,13 @@ jobs:
             {
                 token_number=0
                 ((tmp=count_second%3,token_number=tmp*8,token_number=token_number+1))
-                export GH_TOKEN =${{ GH_TOKEN${token_number} }}
+                if [ token_number -eq 2 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN2}}
+                elif [ token_number -eq 10 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN10}}
+                else
+                      export GH_TOKEN =${{ secrets.GH_TOKEN18}}
+                fi
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -174,11 +202,27 @@ jobs:
                     str=$(scorecard-first --repo $repoName --format json)   
                     || 
                       (sleep 60 
-                      && { count_second=$(($count_second+1));;((tmp=count_second%3,token_number=tmp*8,token_number=token_number+2));export GH_TOKEN =${{ GH_TOKEN$${token_number} }} }
+                      && { count_second=$(($count_second+1));;((tmp=count_second%3,token_number=tmp*8,token_number=token_number+2));
+                        if [ token_number -eq 2 ];then
+                              export GH_TOKEN =${{ secrets.GH_TOKEN2}}
+                        elif [ token_number -eq 10 ];then
+                              export GH_TOKEN =${{ secrets.GH_TOKEN10}}
+                        else
+                              export GH_TOKEN =${{ secrets.GH_TOKEN18}}
+                        fi
+                      }
                       && str=$(scorecard-first --repo $repoName --format json))  
                     || 
                       (sleep 60 
-                      && { count_second=$(($count_second+1));;((tmp=count_second%3,token_number=tmp*8,token_number=token_number+2));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
+                      && { count_second=$(($count_second+1));;((tmp=count_second%3,token_number=tmp*8,token_number=token_number+2));
+                          if [ token_number -eq 2 ];then
+                                export GH_TOKEN =${{ secrets.GH_TOKEN2}}
+                          elif [ token_number -eq 10 ];then
+                                export GH_TOKEN =${{ secrets.GH_TOKEN10}}
+                          else
+                                export GH_TOKEN =${{ secrets.GH_TOKEN18}}
+                          fi      
+                    }
                       && str=$(scorecard-first --repo $repoName --format json))
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -198,7 +242,13 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3))
-                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}
+                 if [ token_number -eq 3 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN3}}
+                 elif [ token_number -eq 11 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN11}}
+                 else
+                      export GH_TOKEN =${{ secrets.GH_TOKEN19}}
+                fi
                  if [ $i -lt $length ];then
                     
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -207,11 +257,28 @@ jobs:
                     str=$(scorecard-second --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    && { count_third=$(($count_third+1));((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
+                    && { count_third=$(($count_third+1));((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3));
+                       if [ token_number -eq 3 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN3}}
+                       elif [ token_number -eq 11 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN11}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN19}}
+                      fi
+                    } 
                     && str=$(scorecard-second --repo $repoName --format json)) 
                     || 
                     (sleep 60 
-                    && { count_third=$(($count_third+1));((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
+                    && { count_third=$(($count_third+1));((tmp=count_third%3,token_number=tmp*8,token_number=token_number+3));
+                      if [ token_number -eq 3 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN3}}
+                       elif [ token_number -eq 11 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN11}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN19}}
+                      fi
+                    
+                    } 
                     && str=$(scorecard-second --repo $repoName --format json)) 
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -232,7 +299,13 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4))
-                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}
+                       if [ token_number -eq 4 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN4}}
+                       elif [ token_number -eq 12 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN12}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN20}}
+                       fi
                  if [ $i -lt $length ];then
 
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -241,11 +314,29 @@ jobs:
                     str=$(scorecard-third --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    &&  { count_fourth=$(($count_fourth+1));((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
+                    &&  { count_fourth=$(($count_fourth+1));((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4));
+                        if [ token_number -eq 4 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN4}}
+                       elif [ token_number -eq 12 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN12}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN20}}
+                       fi
+                    
+                    }
                     &&  str=$(scorecard-third --repo $repoName --format json)) 
                     || 
                     (sleep 60 
-                    &&  { count_fourth=$(($count_fourth+1));((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
+                    &&  { count_fourth=$(($count_fourth+1));((tmp=count_fourth%3,token_number=tmp*8,token_number=token_number+4));
+                         if [ token_number -eq 4 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN4}}
+                         elif [ token_number -eq 12 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN12}}
+                         else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN20}}
+                         fi
+                    
+                    }
                     &&  str=$(scorecard-third --repo $repoName --format json)) 
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -266,6 +357,13 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));
+                 if [ token_number -eq 5 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN5}}
+                 elif [ token_number -eq 13 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN13}}
+                 else
+                      export GH_TOKEN =${{ secrets.GH_TOKEN21}}
+                 fi
                  export GH_TOKEN =${{ GH_TOKEN${token_number} }}
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -274,11 +372,29 @@ jobs:
                     str=$(scorecard-fourth --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    &&  { count_fifth=$(($count_fifth+1));;((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
+                    &&  { count_fifth=$(($count_fifth+1));;((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));
+                        if [ token_number -eq 5 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN5}}
+                       elif [ token_number -eq 13 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN13}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN21}}
+                       fi
+                    
+                    }
                     &&  str=$(scorecard-fourth --repo $repoName --format json)) 
                     || 
                    (sleep 60 
-                    &&  { count_fifth=$(($count_fifth+1));;((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
+                    &&  { count_fifth=$(($count_fifth+1));;((tmp=count_fifth%3,token_number=tmp*8,token_number=token_number+5));
+                        if [ token_number -eq 5 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN5}}
+                       elif [ token_number -eq 13 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN13}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN21}}
+                       fi
+                    
+                    }
                     &&  str=$(scorecard-fourth --repo $repoName --format json)) 
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -299,7 +415,13 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6))
-                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}
+                 if [ token_number -eq 6 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN6}}
+                 elif [ token_number -eq 14 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN14}}
+                 else
+                      export GH_TOKEN =${{ secrets.GH_TOKEN22}}
+                 fi
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -307,11 +429,27 @@ jobs:
                     str=$(scorecard-fifth --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    &&   { count_sixth=$(($count_sixth+1));((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
+                    &&   { count_sixth=$(($count_sixth+1));((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6));
+                        if [ token_number -eq 6 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN6}}
+                       elif [ token_number -eq 14 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN14}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN22}}
+                       fi
+                    } 
                     && str=$(scorecard-fifth --repo $repoName --format json)) 
                     || 
                     (sleep 60 
-                    &&   { count_sixth=$(($count_sixth+1));((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
+                    &&   { count_sixth=$(($count_sixth+1));((tmp=count_sixth%3,token_number=tmp*8,token_number=token_number+6));
+                        if [ token_number -eq 6 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN6}}
+                       elif [ token_number -eq 14 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN14}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN22}}
+                       fi
+                    } 
                     && str=$(scorecard-fifth --repo $repoName --format json)) 
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -332,7 +470,13 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7))
-                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}
+                 if [ token_number -eq 7 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN7}}
+                 elif [ token_number -eq 14 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN15}}
+                 else
+                      export GH_TOKEN =${{ secrets.GH_TOKEN23}}
+                 fi
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -340,11 +484,27 @@ jobs:
                     str=$(scorecard-sixth --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    && { count_seventh=$(($count_seventh+1));((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
+                    && { count_seventh=$(($count_seventh+1));((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7));
+                       if [ token_number -eq 7 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN7}}
+                       elif [ token_number -eq 14 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN15}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN23}}
+                       fi
+                    } 
                     && str=$(scorecard-sixth --repo $repoName --format json)) 
                     || 
                     (sleep 60 
-                    && { count_seventh=$(($count_seventh+1));((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7));export GH_TOKEN =${{ GH_TOKEN${token_number} }} } 
+                    && { count_seventh=$(($count_seventh+1));((tmp=count_seventh%3,token_number=tmp*8,token_number=token_number+7));
+                        if [ token_number -eq 7 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN7}}
+                       elif [ token_number -eq 14 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN15}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN23}}
+                       fi
+                    } 
                     && str=$(scorecard-sixth --repo $repoName --format json)) 
                     ||
                     str=$(echo "faild on ${repoName}") 
@@ -365,7 +525,13 @@ jobs:
             {
                  token_number=0
                  ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8))
-                 export GH_TOKEN =${{ GH_TOKEN${token_number} }}    
+                 if [ token_number -eq 8 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN8}}
+                 elif [ token_number -eq 14 ];then
+                      export GH_TOKEN =${{ secrets.GH_TOKEN16}}
+                 else
+                      export GH_TOKEN =${{ secrets.GH_TOKEN24}}
+                 fi
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -373,11 +539,27 @@ jobs:
                     str=$(scorecard-seventh --repo $repoName --format json)  
                     || 
                     (sleep 60 
-                    &&  { count_eighth=$(($count_eighth+1)); ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
+                    &&  { count_eighth=$(($count_eighth+1)); ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8));
+                        if [ token_number -eq 8 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN8}}
+                       elif [ token_number -eq 14 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN16}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN24}}
+                       fi
+                    }
                     && str=$(scorecard-seventh --repo $repoName --format json)) 
                     || 
                      (sleep 60 
-                    &&  { count_eighth=$(($count_eighth+1)); ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8));export GH_TOKEN =${{ GH_TOKEN${token_number} }} }
+                    &&  { count_eighth=$(($count_eighth+1)); ((tmp=count_eighth%3,token_number=tmp*8,token_number=token_number+8));
+                        if [ token_number -eq 8 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN8}}
+                       elif [ token_number -eq 14 ];then
+                            export GH_TOKEN =${{ secrets.GH_TOKEN16}}
+                       else
+                            export GH_TOKEN =${{ secrets.GH_TOKEN24}}
+                       fi
+                    }
                     && str=$(scorecard-seventh --repo $repoName --format json))
                     ||
                     str=$(echo "faild on ${repoName}") 
