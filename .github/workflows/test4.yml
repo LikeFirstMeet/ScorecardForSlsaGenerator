@@ -1,4 +1,4 @@
-name: Test3
+name: Test4
 on:
   workflow_dispatch:
 
@@ -153,7 +153,9 @@ jobs:
                     str=$(scorecard --repo $repoName --format json)  
                     || 
                       (sleep 60 
-                      && { count_first=$(($count_first+1)); ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));
+                      && (
+                      count_first=$(($count_first+1)); 
+                      ((tmp=count_first%3,token_number=tmp*8,token_number=token_number+1));
                       if [ token_number -eq 1 ];then
                         export GH_TOKEN =${{ secrets.GH_TOKEN1}}
                       elif [ token_number -eq 9 ];then
@@ -161,7 +163,7 @@ jobs:
                       else
                         export GH_TOKEN =${{ secrets.GH_TOKEN17}}
                       fi
-                      } 
+                      )
                       && str=$(scorecard --repo $repoName --format json)) 
                     || 
                       (sleep 60 
