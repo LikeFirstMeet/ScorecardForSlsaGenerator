@@ -103,12 +103,14 @@ jobs:
           rm -rf ./fd7
           rm -rf ./fd8
           #2.创建令牌
-          for i in `seq 1 1`;
-          do
-            echo >&$i
-          done
-          
-          
+          echo >&1
+          echo >&2
+          echo >&3
+          echo >&4
+          echo >&5
+          echo >&6
+          echo >&7
+          echo >&8
           #计数器
           count=0
           count_first=0
