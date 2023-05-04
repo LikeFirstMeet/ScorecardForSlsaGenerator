@@ -140,11 +140,11 @@ jobs:
               index=0
               ((tmp=i/8,index=tmp%3))
               if [ $index -eq 0 ];then
-                export GH_TOKEN=${{ secrets.test1 }}
+                export GH_TOKEN=${{ secrets.TEST1 }}
               elif [ $index -eq 1];then
-                export GH_TOKEN=${{ secrets.test2 }}
+                export GH_TOKEN=${{ secrets.TEST2 }}
               else
-                export GH_TOKEN=${{ secrets.test3 }}
+                export GH_TOKEN=${{ secrets.TEST3 }}
               str=""
               str=$(scorecard --repo $repoName --format json) || sleep 60s && str=$(scorecard --repo $repoName --format json) || sleep 60s && str=$(scorecard --repo $repoName --format json) || $(echo "faild on ${repoName}")
               echo $str >> $TARGET_FILE 
