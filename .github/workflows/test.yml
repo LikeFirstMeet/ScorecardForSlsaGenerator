@@ -106,7 +106,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard --repo $repoName --format json)  || (sleep 60s && str=$(scorecard --repo $repoName --format json))  || (sleep 60s && str=$(scorecard --repo $repoName --format json))   || str=$(echo "faild on ${repoName}") 
+                    str=$(scorecard --repo $repoName --format json)  || (sleep 60s | str=$(scorecard --repo $repoName --format json))  || (sleep 60s | str=$(scorecard --repo $repoName --format json))   || str=$(echo "faild on ${repoName}") 
                     echo $str >> $TARGET_FILE 
                     echo "name:first  ${repoName} finished"
                     sleep 60s
@@ -115,6 +115,7 @@ jobs:
                 
               }&
               echo "name:first"
+              sleep 30s
               i=$(($i+1))
               read -u5
               {
@@ -131,7 +132,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-first --repo $repoName --format json)  || (sleep 60s && str=$(scorecard-first --repo $repoName --format json))  || (sleep 60s && str=$(scorecard-first --repo $repoName --format json))  || str=$(echo "faild on ${repoName}") 
+                    str=$(scorecard-first --repo $repoName --format json)  || (sleep 60s | str=$(scorecard-first --repo $repoName --format json))  || (sleep 60s | str=$(scorecard-first --repo $repoName --format json))  || str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_FIRST
                     echo "name:second  ${repoName} finished"
                     sleep 60s
@@ -139,6 +140,7 @@ jobs:
                  fi
               }&
               echo "name:second"
+              sleep 30s
               i=$(($i+1))
               read -u5
               {
@@ -155,7 +157,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-second --repo $repoName --format json)  || (sleep 60s && str=$(scorecard-second --repo $repoName --format json))  || (sleep 60s && str=$(scorecard-second --repo $repoName --format json))  || str=$(echo "faild on ${repoName}") 
+                    str=$(scorecard-second --repo $repoName --format json)  || (sleep 60s | str=$(scorecard-second --repo $repoName --format json))  || (sleep 60s  str=$(scorecard-second --repo $repoName --format json))  || str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SECOND
                     echo "name third ${repoName} finished"
                     sleep 60s
@@ -164,6 +166,7 @@ jobs:
                  
               }&
               echo "name third"
+              sleep 30s
               i=$(($i+1))
               read -u5
               {
@@ -181,7 +184,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-third --repo $repoName --format json)  || （sleep 60s &&str=$(scorecard-third --repo $repoName --format json)）||（sleep 60s &&str=$(scorecard-third --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
+                    str=$(scorecard-third --repo $repoName --format json)  || （sleep 60s | str=$(scorecard-third --repo $repoName --format json)）||（sleep 60s | str=$(scorecard-third --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_THIRD
                     echo "name:fourth ${repoName}  finished"
                     sleep 60s
@@ -190,6 +193,7 @@ jobs:
                  
               }&
               echo "name:fourth"
+              sleep 30s
               i=$(($i+1))
               read -u5
               {
@@ -205,7 +209,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-fourth --repo $repoName --format json)  || （sleep 60s && str=$(scorecard-fourth --repo $repoName --format json)）  || （sleep 60s && str=$(scorecard-fourth --repo $repoName --format json)） || str=$(echo "faild on ${repoName}") 
+                    str=$(scorecard-fourth --repo $repoName --format json)  || （sleep 60s | str=$(scorecard-fourth --repo $repoName --format json)）  || （sleep 60s | str=$(scorecard-fourth --repo $repoName --format json)） || str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FOURTH
                     echo "name:fifth ${repoName}  finished"
                     sleep 60s
@@ -214,6 +218,7 @@ jobs:
                  
               }&
               echo "name:fifth"
+              sleep 30s
               i=$(($i+1))
               read -u5
               {
@@ -229,7 +234,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-fifth --repo $repoName --format json)  || （sleep 60 &&  str=$(scorecard-fifth --repo $repoName --format json)） ||（sleep 60 &&  str=$(scorecard-fifth --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
+                    str=$(scorecard-fifth --repo $repoName --format json)  || （sleep 60 |  str=$(scorecard-fifth --repo $repoName --format json)） ||（sleep 60 |  str=$(scorecard-fifth --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FIFTH
                     echo "name:sixth  ${repoName} finished"
                     sleep 60s
@@ -238,6 +243,7 @@ jobs:
                  
               }&
               echo "name:sixth"
+              sleep 30s
               i=$(($i+1))
               read -u5
               {
@@ -253,7 +259,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-sixth --repo $repoName --format json)  || （sleep 60s && str=$(scorecard-sixth --repo $repoName --format json)） || （sleep 60s && str=$(scorecard-sixth --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
+                    str=$(scorecard-sixth --repo $repoName --format json)  || （sleep 60s | str=$(scorecard-sixth --repo $repoName --format json)） || （sleep 60s | str=$(scorecard-sixth --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_SIXTH
                     echo "name:seventh  ${repoName} finished"
                     sleep 60s
@@ -262,6 +268,7 @@ jobs:
                  
               }&
               echo "name:seventh"
+              sleep 30s
               i=$(($i+1))
               read -u5
               {
@@ -277,7 +284,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(scorecard-seventh --repo $repoName --format json)  || （sleep 60s &&  str=$(scorecard-seventh --repo $repoName --format json)）||（sleep 60s &&  str=$(scorecard-seventh --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
+                    str=$(scorecard-seventh --repo $repoName --format json)  || （sleep 60s |  str=$(scorecard-seventh --repo $repoName --format json)）||（sleep 60s |  str=$(scorecard-seventh --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SEVENTH
                     echo "name:eighth ${repoName} finished"
                     sleep 60s
@@ -286,7 +293,6 @@ jobs:
                  
               }&
               echo "name:eighth"
-              sleep 80s
           done
           
           
