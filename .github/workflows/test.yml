@@ -168,9 +168,9 @@ jobs:
               read -u5
               {
                 if [ `expr ${count} % 3` -eq 0 ]; then
-                  export GH_TOKEN=${{ secrets.GH_TOKEN4}}
+                  export GH_TOKEN=${{ secrets.GH_TOKEN4}}}
                 elif [ `expr ${count} % 3` -eq 1 ]; then
-                  export GH_TOKEN=${{ secrets.GH_TOKEN12}
+                  export GH_TOKEN=${{ secrets.GH_TOKEN12}}
                 else
                   export GH_TOKEN=${{ secrets.GH_TOKEN20}}
                 fi
