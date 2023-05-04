@@ -97,10 +97,13 @@ jobs:
               {
                 if [ `expr ${count} % 3` -eq 0 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN1 }}
+                  echo "第一个"
                 elif [ `expr ${count} % 3` -eq 1 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN9 }}
+                  echo "第二个"
                 else
                   export GH_TOKEN=${{ secrets.GH_TOKEN17 }}
+                  echo "第三个"
                 fi
                 if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
