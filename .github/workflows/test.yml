@@ -172,7 +172,7 @@ jobs:
                 elif [ `expr ${count} % 3` -eq 1 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN12}
                 else
-                  export GH_TOKEN=${{ secrets.GH_TOKEN20}
+                  export GH_TOKEN=${{ secrets.GH_TOKEN20}}
                 fi
                  
                  
