@@ -109,7 +109,6 @@ jobs:
                     str=$(scorecard --repo $repoName --format json)  || (sleep 60s | str=$(scorecard --repo $repoName --format json))  || (sleep 60s | str=$(scorecard --repo $repoName --format json))   || str=$(echo "faild on ${repoName}") 
                     echo $str >> $TARGET_FILE 
                     echo "name:first  ${repoName} finished"
-                    sleep 60s
                     echo >&5
                 fi
                 
@@ -124,7 +123,7 @@ jobs:
                 elif [ `expr ${count} % 3` -eq 1 ]; then
                   export GH_TOKEN=${{ secrets.GH_TOKEN10 }}
                 else
-                  export GH_TOKEN=${{ secrets.GH_TOKEN118 }}
+                  export GH_TOKEN=${{ secrets.GH_TOKEN18 }}
                 fi
                 
                 if [ $i -lt $length ];then
@@ -135,7 +134,6 @@ jobs:
                     str=$(scorecard-first --repo $repoName --format json)  || (sleep 60s | str=$(scorecard-first --repo $repoName --format json))  || (sleep 60s | str=$(scorecard-first --repo $repoName --format json))  || str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_FIRST
                     echo "name:second  ${repoName} finished"
-                    sleep 60s
                     echo >&5
                  fi
               }&
@@ -160,7 +158,6 @@ jobs:
                     str=$(scorecard-second --repo $repoName --format json)  || (sleep 60s | str=$(scorecard-second --repo $repoName --format json))  || (sleep 60s  str=$(scorecard-second --repo $repoName --format json))  || str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SECOND
                     echo "name third ${repoName} finished"
-                    sleep 60s
                     echo >&5
                  fi
                  
@@ -187,7 +184,6 @@ jobs:
                     str=$(scorecard-third --repo $repoName --format json)  || （sleep 60s | str=$(scorecard-third --repo $repoName --format json)）||（sleep 60s | str=$(scorecard-third --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_THIRD
                     echo "name:fourth ${repoName}  finished"
-                    sleep 60s
                     echo >&5
                  fi
                  
@@ -204,7 +200,6 @@ jobs:
                 else
                   export GH_TOKEN=${{ secrets.GH_TOKEN21 }}
                 fi
-                 i=$(($i+1))
                  if [ $i -lt $length ];then
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
@@ -212,7 +207,6 @@ jobs:
                     str=$(scorecard-fourth --repo $repoName --format json)  || （sleep 60s | str=$(scorecard-fourth --repo $repoName --format json)）  || （sleep 60s | str=$(scorecard-fourth --repo $repoName --format json)） || str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FOURTH
                     echo "name:fifth ${repoName}  finished"
-                    sleep 60s
                     echo >&5
                  fi
                  
@@ -237,7 +231,6 @@ jobs:
                     str=$(scorecard-fifth --repo $repoName --format json)  || （sleep 60 |  str=$(scorecard-fifth --repo $repoName --format json)） ||（sleep 60 |  str=$(scorecard-fifth --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_FIFTH
                     echo "name:sixth  ${repoName} finished"
-                    sleep 60s
                     echo >&5
                  fi
                  
@@ -262,7 +255,6 @@ jobs:
                     str=$(scorecard-sixth --repo $repoName --format json)  || （sleep 60s | str=$(scorecard-sixth --repo $repoName --format json)） || （sleep 60s | str=$(scorecard-sixth --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
                     echo $str >>  $TMP_FILE_SIXTH
                     echo "name:seventh  ${repoName} finished"
-                    sleep 60s
                     echo >&5
                  fi
                  
@@ -287,7 +279,6 @@ jobs:
                     str=$(scorecard-seventh --repo $repoName --format json)  || （sleep 60s |  str=$(scorecard-seventh --repo $repoName --format json)）||（sleep 60s |  str=$(scorecard-seventh --repo $repoName --format json)）|| str=$(echo "faild on ${repoName}") 
                     echo $str >> $TMP_FILE_SEVENTH
                     echo "name:eighth ${repoName} finished"
-                    sleep 60s
                     echo >&5
                  fi
                  
