@@ -132,7 +132,6 @@ jobs:
           
           #拿出令牌进行并发操作
           
-          
           {
             for((i=0;i<length;i=i+8));do
               repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -141,12 +140,12 @@ jobs:
               ((tmp=i/8,index=tmp%3))
               if [ $index -eq 0 ];then
                 export GH_TOKEN=${{ secrets.TEST1 }}
-              elif [ $index -eq 1];then
+              elif [ $index -eq 1 ];then
                 export GH_TOKEN=${{ secrets.TEST2 }}
               else
                 export GH_TOKEN=${{ secrets.TEST3 }}
               str=""
-              str=$(scorecard --repo $repoName --format json) || sleep 60s && str=$(scorecard --repo $repoName --format json) || sleep 60s && str=$(scorecard --repo $repoName --format json) || $(echo "faild on ${repoName}")
+              str=$(scorecard --repo $repoName --format json) || (sleep 60s && str=$(scorecard --repo $repoName --format json)) || (sleep 60s && str=$(scorecard --repo $repoName --format json)) || $(echo "faild on ${repoName}")
               echo $str >> $TARGET_FILE 
               echo "name:first  ${repoName} finished"
               sleep 5s
