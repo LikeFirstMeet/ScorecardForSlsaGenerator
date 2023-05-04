@@ -44,20 +44,6 @@ jobs:
           export PATH=$PATH:$GITHUB_WORKSPACE
           # 用于存储结果文件
           export TARGET_FILE=/tmp/.github/profile/scores.txt
-          export TMP_FILE_FIRST=tmp1.txt
-          export TMP_FILE_SECOND=tmp2.txt
-          export TMP_FILE_THIRD=tmp3.txt
-          export TMP_FILE_FOURTH=tmp4.txt
-          export TMP_FILE_FIFTH=tmp5.txt
-          export TMP_FILE_SIXTH=tmp6.txt
-          export TMP_FILE_SEVENTH=tmp7.txt
-          touch $TMP_FILE_FIRST
-          touch $TMP_FILE_SECOND
-          touch $TMP_FILE_THIRD
-          touch $TMP_FILE_FOURTH
-          touch $TMP_FILE_FIFTH
-          touch $TMP_FILE_SIXTH
-          touch $TMP_FILE_SEVENTH
           
           # 下载当前仓库
           gh repo clone $GITHUB_REPOSITORY /tmp/.github
@@ -75,63 +61,7 @@ jobs:
           arr=(${repos//,/ })
           length=${#arr[@]}
           
-          
-          #1.创建有名管道
-          [ -e ./fd1 ] || mkfifo ./fd1
-          [ -e ./fd2 ] || mkfifo ./fd2
-          [ -e ./fd3 ] || mkfifo ./fd3
-          [ -e ./fd4 ] || mkfifo ./fd4
-          [ -e ./fd5 ] || mkfifo ./fd5
-          [ -e ./fd6 ] || mkfifo ./fd6
-          [ -e ./fd7 ] || mkfifo ./fd7
-          [ -e ./fd8 ] || mkfifo ./fd8
-          exec 1<> ./fd1
-          exec 2<> ./fd2
-          exec 3<> ./fd3
-          exec 4<> ./fd4
-          exec 5<> ./fd5
-          exec 6<> ./fd6
-          exec 7<> ./fd7
-          exec 8<> ./fd8
-          rm -rf ./fd1
-          rm -rf ./fd2
-          rm -rf ./fd3
-          rm -rf ./fd4
-          rm -rf ./fd5
-          rm -rf ./fd6
-          rm -rf ./fd7
-          rm -rf ./fd8
-          #2.创建令牌
-          echo >&1
-          echo >&2
-          echo >&3
-          echo >&4
-          echo >&5
-          echo >&6
-          echo >&7
-          echo >&8
-          echo >&1
-          echo >&2
-          echo >&3
-          echo >&4
-          echo >&5
-          echo >&6
-          echo >&7
-          echo >&8
-          #计数器
-          count=0
-          count_first=0
-          count_second=0 
-          count_third=0 
-          count_four=0 
-          count_fifth=0 
-          count_sixth=0 
-          count_seventh=0 
-          count_eighth=0 
-          
-          
-          #拿出令牌进行并发操作
-          
+        
           {
             for((i=0;i<length;i=i+8));do
               repoName=https://github.com/laiyoufafa/${arr[$i]}
@@ -145,7 +75,7 @@ jobs:
               else
                 export GH_TOKEN=${{ secrets.TEST3 }}
               str=""
-              str=$(scorecard --repo $repoName --format json) || (sleep 60s && str=$(scorecard --repo $repoName --format json)) || (sleep 60s && str=$(scorecard --repo $repoName --format json)) || $(echo "faild on ${repoName}")
+              str=$(scorecard --repo $repoName --format json) || (sleep 60s && str=$(scorecard --repo $repoName --format json)) || (sleep 60s && str=$(scorecard --repo $repoName --format json)) || str=$(echo "faild on ${repoName}")
               echo $str >> $TARGET_FILE 
               echo "name:first  ${repoName} finished"
               sleep 5s
