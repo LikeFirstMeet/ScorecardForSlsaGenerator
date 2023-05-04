@@ -286,6 +286,7 @@ jobs:
                  
               }&
               echo "name:eighth"
+              sleep 60s
           done
           
           
