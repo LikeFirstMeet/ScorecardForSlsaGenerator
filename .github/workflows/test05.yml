@@ -20,7 +20,7 @@ jobs:
             for((i=0;i<100;i++));do
               echo $i
               repoName=https://github.com/laiyoufafa/applications_photos
-              if [ `expr $i % 2` -wq 0];then
+              if [ `expr $i % 2` -eq 0 ];then
                 export GH_TOKEN=${{ secrets.GH_TOKEN }}
               else
                 export GH_TOKEN=${{ secrets.GH_TOKEN1 }}
