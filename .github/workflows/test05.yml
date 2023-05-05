@@ -22,7 +22,7 @@ jobs:
               echo $i
               repoName=https://github.com/laiyoufafa/applications_photos
               if [ `expr $i % 2` -eq 0 ];then
-                export GH_TOKEN=${{ secrets.GH_TOKEN }}
+                export GH_TOKEN=${{ secrets.SCORE_TS2 }}
                 scorecard-first --repo $repoName --format json
                 echo "第一个"
               else
