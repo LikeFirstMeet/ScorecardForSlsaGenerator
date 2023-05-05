@@ -117,7 +117,7 @@ jobs:
                 
               }&
               echo "name:first"
-              sleep 20s
+              sleep 15s
               i=$(($i+1))
               read -u5
               {
@@ -141,7 +141,7 @@ jobs:
                  fi
               }&
               echo "name:second"
-              sleep 20s
+              sleep 15s
               i=$(($i+1))
               read -u5
               {
@@ -166,7 +166,7 @@ jobs:
                  
               }&
               echo "name third"
-              sleep 20s
+              sleep 15s
               i=$(($i+1))
               read -u5
               {
@@ -192,7 +192,7 @@ jobs:
                  
               }&
               echo "name:fourth"
-              sleep 20s
+              sleep 15s
               i=$(($i+1))
               read -u5
               {
@@ -215,7 +215,7 @@ jobs:
                  
               }&
               echo "name:fifth"
-              sleep 20s
+              sleep 15s
               i=$(($i+1))
               read -u5
               {
@@ -239,7 +239,7 @@ jobs:
                  
               }&
               echo "name:sixth"
-              sleep 30s
+              sleep 15s
               i=$(($i+1))
               read -u5
               {
@@ -263,7 +263,7 @@ jobs:
                  
               }&
               echo "name:seventh"
-              sleep 20s
+              sleep 15s
               i=$(($i+1))
               read -u5
               {
