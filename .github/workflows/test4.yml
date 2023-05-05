@@ -127,33 +127,26 @@ jobs:
           count_seventh=0 
           count_eighth=0 
           
-          
-          #拿出令牌进行并发操作
-          for((i=0;i<length;i=i+8));do
-            count_first=$(($count_first+1));
-            count=$(($count+1));
-            echo "count value :${count}"
-            read -u1
-            {  
-                if [ $i -lt $length ];then
+          {
+            for((i=0;i<length;i++));do
+              count_first=$(($count_first+1));
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
                     export GH_TOKEN =${{ secrets.GH_TOKEN1}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
-                    str=$(echo "faild on ${repoName}") 
                     echo $str >> $TARGET_FILE 
                     echo "name:first  ${repoName} finished"
-                fi
-                echo >&1
-            }&
-            sleep 2s
-          done
-             
-          
-          
+              fi
+            done
+          }&
+                    
           
           wait
+          export GH_TOKEN=${{ secrets.GH_TOKEN }}
           #关闭文件描述读写
           exec 1<&-
           exec 1>&-
@@ -178,7 +171,7 @@ jobs:
           cat $GITHUB_WORKSPACE/$TMP_FILE_FIFTH >> $TARGET_FILE
           cat $GITHUB_WORKSPACE/$TMP_FILE_SIXTH >> $TARGET_FILE
           cat $GITHUB_WORKSPACE/$TMP_FILE_SEVENTH >> $TARGET_FILE
-          export GH_TOKEN=${{ secrets.GH_TOKEN }}
+         
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
