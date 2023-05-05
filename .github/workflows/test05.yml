@@ -24,6 +24,7 @@ jobs:
                 export GH_TOKEN=${{ secrets.GH_TOKEN }}
               else
                 export GH_TOKEN=${{ secrets.GH_TOKEN1 }}
+              fi
               scorecard --repo $repoName --format json
               sleep 2.5s
               
