@@ -26,7 +26,7 @@ jobs:
                 scorecard-first --repo $repoName --format json
                 echo "第一个"
               else
-                export GH_TOKEN=${{ secrets.GH_TOKEN1 }}
+                export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
                 echo "第二个"
                 scorecard --repo $repoName --format json
               fi
