@@ -22,8 +22,10 @@ jobs:
               repoName=https://github.com/laiyoufafa/applications_photos
               if [ `expr $i % 2` -eq 0 ];then
                 export GH_TOKEN=${{ secrets.GH_TOKEN }}
+                echo "第一个"
               else
                 export GH_TOKEN=${{ secrets.GH_TOKEN1 }}
+                echo "第二个"
               fi
               scorecard --repo $repoName --format json
               sleep 2.5s
