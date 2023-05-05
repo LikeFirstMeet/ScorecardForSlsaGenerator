@@ -56,16 +56,16 @@ jobs:
              if [ $(($count%2)) -eq 0 ]; then
                 export GH_TOKEN=${{ secrets.GH_TOKEN1 }}
              else
-                export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
+                export GH_TOKEN=${{ secrets.SCORE_TS2 }}
              fi
              repoName=https://github.com/laiyoufafa/$i
              count=$(($count+1))
              echo "time:${count}    repos_url:${repoName} "
              str=""
-             str=$(scorecard --repo $repoName --format json)  || (sleep 5s && str=$(scorecard --repo $repoName --format json)) || (sleep 5s && str=$(scorecard --repo $repoName --format json)) || str=$(echo "faild on ${repoName}")
+             str=$(scorecard --repo $repoName --format json)  || (sleep 10s && str=$(scorecard --repo $repoName --format json)) || (sleep 10s && str=$(scorecard --repo $repoName --format json)) || str=$(echo "faild on ${repoName}")
              echo $str >> $TARGET_FILE
              echo "times:${count} ${repoName} finished"
-             sleep 5
+             sleep 2s
           done
           
           gh auth setup-git -h github.com
