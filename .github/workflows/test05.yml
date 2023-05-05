@@ -20,6 +20,9 @@ jobs:
           {
             for((i=0;i<100;i++));do
               echo $i
+              export PATH=$PATH:$GITHUB_WORKSPACE
+              repoName=https://github.com/laiyoufafa/applications_photos
+              scorecard --repo $repoName --format json
               sleep 1s
             done  
           }&
