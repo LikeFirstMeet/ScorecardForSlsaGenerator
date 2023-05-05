@@ -62,12 +62,12 @@ jobs:
              count=$(($count+1))
              echo "time:${count}    repos_url:${repoName} "
              str=""
-             str=$(scorecard --repo $repoName --format json)  || (sleep 10s && str=$(scorecard --repo $repoName --format json)) || (sleep 10s && str=$(scorecard --repo $repoName --format json)) || str=$(echo "faild on ${repoName}")
+             str=$(scorecard --repo $repoName --format json) || true
              echo $str >> $TARGET_FILE
              echo "times:${count} ${repoName} finished"
              sleep 2s
           done
-          
+          export GH_TOKEN=${{ secrets.GH_TOKEN }}
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
