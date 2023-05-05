@@ -62,13 +62,10 @@ jobs:
              count=$(($count+1))
              echo "time:${count}    repos_url:${repoName} "
              str=""
-             str=$(scorecard --repo $repoName --format json)  || 
-             str=$(scorecard --repo $repoName --format json)  ||
-             str=$(scorecard --repo $repoName --format json)  ||
-             str=$(echo "faild on ${repoName}")
+             str=$(scorecard --repo $repoName --format json)  || (sleep 5s && str=$(scorecard --repo $repoName --format json)) || (sleep 5s && str=$(scorecard --repo $repoName --format json)) || str=$(echo "faild on ${repoName}")
              echo $str >> $TARGET_FILE
-             echo "times:${count} finished"
-             sleep 2
+             echo "times:${count} ${repoName} finished"
+             sleep 5
           done
           
           gh auth setup-git -h github.com
