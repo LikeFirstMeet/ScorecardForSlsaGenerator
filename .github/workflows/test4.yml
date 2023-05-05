@@ -40,33 +40,6 @@ jobs:
         run: |
           # 将scorecard加入环境变量
           export PATH=$PATH:$GITHUB_WORKSPACE
-          # 用于存储结果文件
-          export TARGET_FILE=/tmp/.github/profile/scores.txt
-          export TMP_FILE_FIRST=tmp1.txt
-          export TMP_FILE_SECOND=tmp2.txt
-          export TMP_FILE_THIRD=tmp3.txt
-          export TMP_FILE_FOURTH=tmp4.txt
-          export TMP_FILE_FIFTH=tmp5.txt
-          export TMP_FILE_SIXTH=tmp6.txt
-          export TMP_FILE_SEVENTH=tmp7.txt
-          touch $TMP_FILE_FIRST
-          touch $TMP_FILE_SECOND
-          touch $TMP_FILE_THIRD
-          touch $TMP_FILE_FOURTH
-          touch $TMP_FILE_FIFTH
-          touch $TMP_FILE_SIXTH
-          touch $TMP_FILE_SEVENTH
-          
-          # 下载当前仓库
-          gh repo clone $GITHUB_REPOSITORY /tmp/.github
-          cd /tmp/.github
-          if [ ! -d "profile" ]; then
-            mkdir profile
-          fi
-          if [ -f "$TARGET_FILE" ]; then
-            rm $TARGET_FILE
-          fi
-          touch $TARGET_FILE
           
           # 将仓库列表变成数组格式
           repos=${{steps.repo.outputs.repoList_ALL}}
@@ -138,7 +111,7 @@ jobs:
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
-                    echo $str >> $TARGET_FILE 
+                    echo $str
                     echo "name:first  ${repoName} finished"
               fi
             done
@@ -146,30 +119,6 @@ jobs:
                     
           
           wait
-          export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN }}
-          #关闭文件描述读写
-          exec 1<&-
-          exec 1>&-
-          exec 2<&-
-          exec 2>&-
-          exec 3<&-
-          exec 3>&-
-          exec 4<&-
-          exec 4>&-
-          exec 5<&-
-          exec 5>&-
-          exec 6<&-
-          exec 6>&-
-          exec 7<&-
-          exec 7>&-
-          exec 8<&-
-          exec 8>&-
-          cat $GITHUB_WORKSPACE/$TMP_FILE_FIRST >> $TARGET_FILE
-          cat $GITHUB_WORKSPACE/$TMP_FILE_SECOND >> $TARGET_FILE
-          cat $GITHUB_WORKSPACE/$TMP_FILE_THIRD >> $TARGET_FILE
-          cat $GITHUB_WORKSPACE/$TMP_FILE_FOURTH >> $TARGET_FILE
-          cat $GITHUB_WORKSPACE/$TMP_FILE_FIFTH >> $TARGET_FILE
-          cat $GITHUB_WORKSPACE/$TMP_FILE_SIXTH >> $TARGET_FILE
-          cat $GITHUB_WORKSPACE/$TMP_FILE_SEVENTH >> $TARGET_FILE
+          echo "finished"
          
 
