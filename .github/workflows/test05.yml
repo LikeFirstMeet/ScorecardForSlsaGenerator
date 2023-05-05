@@ -23,7 +23,7 @@ jobs:
               echo $i
               repoName=https://github.com/laiyoufafa/applications_photos
               scorecard --repo $repoName --format json
-              sleep 2s
+              sleep 4s
               
             done  
           }&
