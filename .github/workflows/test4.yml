@@ -133,7 +133,7 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    export GH_TOKEN =${{ secrets.GH_TOKEN1}}
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN1}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -146,7 +146,7 @@ jobs:
                     
           
           wait
-          export GH_TOKEN=${{ secrets.GH_TOKEN }}
+          export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN }}
           #关闭文件描述读写
           exec 1<&-
           exec 1>&-
