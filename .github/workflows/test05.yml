@@ -14,16 +14,18 @@ jobs:
           
           
       - name: Score Repositroies
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           export PATH=$PATH:$GITHUB_WORKSPACE
           {
             for((i=0;i<100;i++));do
               echo $i
               repoName=https://github.com/laiyoufafa/applications_photos
+              if [ `expr $i % 2` -wq 0];then
+                export GH_TOKEN=${{ secrets.GH_TOKEN }}
+              else
+                export GH_TOKEN=${{ secrets.GH_TOKEN1 }}
               scorecard --repo $repoName --format json
-              sleep 5s
+              sleep 2.5s
               
             done  
           }&
