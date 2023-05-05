@@ -31,7 +31,7 @@ jobs:
           
       - name: Score Repositroies
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN4 }}
         run: |
           # 将scorecard加入环境变量
           export PATH=$PATH:$GITHUB_WORKSPACE
