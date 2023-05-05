@@ -56,7 +56,7 @@ jobs:
              if [ $(($count%2)) -eq 0 ]; then
                 export GH_TOKEN=${{ secrets.GH_TOKEN1 }}
              else
-                export GH_TOKEN=${{ secrets.SCORE_TS2 }}
+                export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
              fi
              repoName=https://github.com/laiyoufafa/$i
              count=$(($count+1))
@@ -67,7 +67,7 @@ jobs:
              echo "times:${count} ${repoName} finished"
              sleep 2s
           done
-          export GH_TOKEN=${{ secrets.GH_TOKEN }}
+          
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
