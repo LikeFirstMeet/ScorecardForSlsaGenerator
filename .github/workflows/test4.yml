@@ -46,13 +46,7 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    index=$i
-                    ((index=index/8))
-                    if [ `expr $index % 2` -eq 0 ];then
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN1}}
-                    else
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN9}}
-                    fi
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN1}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -81,7 +75,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
-                    sleep 5s
+                    sleep 10s
               fi
             done
           }&
@@ -90,20 +84,14 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    index=$(($i-2))
-                    ((index=index/8))
-                    if [ `expr $index % 2` -eq 0 ];then
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN3}}
-                    else
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN11}}
-                    fi
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN3}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
-                    sleep 5s
+                    sleep 15s
               fi
             done
           }&
@@ -112,20 +100,14 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    index=$(($i-3))
-                    ((index=index/8))
-                    if [ `expr $index % 2` -eq 0 ];then
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN4}}
-                    else
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN12}}
-                    fi
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN4}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
-                    sleep 5s
+                    sleep 20s
               fi
             done
           }&
@@ -134,13 +116,7 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    index=$(($i-4))
-                    ((index=index/8))
-                    if [ `expr $index % 2` -eq 0 ];then
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN5}}
-                    else
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN13}}
-                    fi
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN5}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -156,20 +132,14 @@ jobs:
               count=$(($count-5));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    index=$(($i-5))
-                    ((index=index/8))
-                    if [ `expr $index % 2` -eq 0 ];then
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN6}}
-                    else
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN14}}
-                    fi
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN6}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
-                    sleep 5s
+                    sleep 25s
               fi
             done
           }&
@@ -178,20 +148,14 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    index=$(($i-6))
-                    ((index=index/8))
-                    if [ `expr $index % 2` -eq 0 ];then
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN7}}
-                    else
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN15}}
-                    fi
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN7}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
-                    sleep 5s
+                    sleep 30s
               fi
             done
           }&
@@ -200,25 +164,18 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    index=$(($i-7))
-                    ((index=index/8))
-                    if [ `expr $index % 2` -eq 0 ];then
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN8}}
-                    else
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN16}}
-                    fi
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN8}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
-                    sleep 5s
+                    sleep 35s
               fi
             done
           }&
-                    
-          
+           
           wait
           echo "finished"
          
