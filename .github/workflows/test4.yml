@@ -53,6 +53,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
+                    sleep 5s
               fi
             done
           }&
@@ -68,6 +69,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
+                    sleep 5s
               fi
             done
           }&
@@ -83,6 +85,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
+                    sleep 5s
               fi
             done
           }&
@@ -98,6 +101,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
+                    sleep 5s
               fi
             done
           }&
@@ -112,6 +116,7 @@ jobs:
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
+                    sleep 5s
                     echo "name:first  ${repoName} finished"
               fi
             done
@@ -128,6 +133,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
+                    sleep 5s
               fi
             done
           }&
@@ -143,6 +149,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
+                    sleep 5s
               fi
             done
           }&
@@ -158,6 +165,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str
                     echo "name:first  ${repoName} finished"
+                    sleep 5s
               fi
             done
           }&
