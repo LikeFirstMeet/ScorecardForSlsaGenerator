@@ -65,7 +65,7 @@ jobs:
              str=$(scorecard --repo $repoName --format json) || true
              echo $str >> $TARGET_FILE
              echo "times:${count} ${repoName} finished"
-             sleep 2s
+             sleep 3s
           done
           
           gh auth setup-git -h github.com
