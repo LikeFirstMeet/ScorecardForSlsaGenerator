@@ -54,7 +54,7 @@ jobs:
               if [ $i -lt $length ];then
                     export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN1}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    echo "time:${i}    repos_url:${repoName} "
+                    echo "name:first time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str >> $FIRST_FILE
@@ -70,7 +70,7 @@ jobs:
               if [ $i -lt $length ];then
                     export GITHUB_AUTH_TOKEN=${{ secrets.USER2}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    echo "time:${i}    repos_url:${repoName} "
+                    echo "name:second time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str >> $SECOND_FILE
@@ -86,7 +86,7 @@ jobs:
               if [ $i -lt $length ];then
                     export GITHUB_AUTH_TOKEN=${{ secrets.USER3}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    echo "time:${i}    repos_url:${repoName} "
+                    echo "name:third time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str >> $THIRD_FILE
@@ -102,7 +102,7 @@ jobs:
               if [ $i -lt $length ];then
                     export GITHUB_AUTH_TOKEN=${{ secrets.SCORE_TS2}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    echo "time:${i}    repos_url:${repoName} "
+                    echo "name:fourth time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str >> $FOURTH_FILE
