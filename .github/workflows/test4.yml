@@ -126,7 +126,7 @@ jobs:
           if [ -f "$TARGET_FILE" ]; then
             rm $TARGET_FILE
           fi
-          mv $GITHUB_WORKSPACE/$TARGET_FILE /tmp/.github
+          mv $GITHUB_WORKSPACE/$TARGET_FILE /tmp/.github/profile
           
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
