@@ -30,6 +30,8 @@ jobs:
           
           
       - name: Score Repositroies
+        env: 
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
         run: |
           # 将scorecard加入环境变量
           export PATH=$PATH:$GITHUB_WORKSPACE
@@ -38,7 +40,8 @@ jobs:
           repos=${{steps.repo.outputs.repoList_ALL}}
           arr=(${repos//,/ })
           length=${#arr[@]}
-
+          TARGET_FILE=score.txt
+          touch $TARGET_FILE
           #计数器
           count=0
           {
@@ -51,7 +54,7 @@ jobs:
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
-                    echo $str
+                    echo $str >> $TARGET_FILE
                     echo "name:first  ${repoName} finished"
                     sleep 5s
               fi
@@ -73,7 +76,7 @@ jobs:
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
-                    echo $str
+                    echo $str >> $TARGET_FILE
                     echo "name:first  ${repoName} finished"
                     sleep 5s
               fi
@@ -89,7 +92,7 @@ jobs:
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
-                    echo $str
+                    echo $str >> $TARGET_FILE
                     echo "name:first  ${repoName} finished"
                     sleep 5s
               fi
@@ -105,7 +108,7 @@ jobs:
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
-                    echo $str
+                    echo $str >> $TARGET_FILE
                     echo "name:first  ${repoName} finished"
                     sleep 5s
               fi
@@ -114,6 +117,22 @@ jobs:
    
            
           wait
-          echo "finished"
+          # 下载当前仓库
+          gh repo clone $GITHUB_REPOSITORY /tmp/.github
+          cd /tmp/.github
+          if [ ! -d "profile" ]; then
+            mkdir profile
+          fi
+          if [ -f "$TARGET_FILE" ]; then
+            rm $TARGET_FILE
+          fi
+          mv $GITHUB_WORKSPACE/$TARGET_FILE $GITHUB_WORKSPACE/tmp/.github
+          
+          gh auth setup-git -h github.com
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update profile/scores.txt from CI"
+          git push 
          
 
