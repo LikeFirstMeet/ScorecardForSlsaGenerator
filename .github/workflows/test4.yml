@@ -56,6 +56,111 @@ jobs:
               fi
             done
           }&
+          {
+            for((i=1;i<length;i=i+8));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN2}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str
+                    echo "name:first  ${repoName} finished"
+              fi
+            done
+          }&
+          {
+            for((i=2;i<length;i=i+8));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN3}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str
+                    echo "name:first  ${repoName} finished"
+              fi
+            done
+          }&
+          {
+            for((i=3;i<length;i=i+8));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN4}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str
+                    echo "name:first  ${repoName} finished"
+              fi
+            done
+          }&
+          {
+            for((i=4;i<length;i=i+8));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN5}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str
+                    echo "name:first  ${repoName} finished"
+              fi
+            done
+          }&
+          {
+            for((i=5;i<length;i=i+8));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN6}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str
+                    echo "name:first  ${repoName} finished"
+              fi
+            done
+          }&
+          {
+            for((i=6;i<length;i=i+8));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN7}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str
+                    echo "name:first  ${repoName} finished"
+              fi
+            done
+          }&
+          {
+            for((i=7;i<length;i=i+8));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN8}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str
+                    echo "name:first  ${repoName} finished"
+              fi
+            done
+          }&
                     
           
           wait
