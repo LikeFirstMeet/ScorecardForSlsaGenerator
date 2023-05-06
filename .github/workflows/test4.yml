@@ -40,8 +40,11 @@ jobs:
           repos=${{steps.repo.outputs.repoList_ALL}}
           arr=(${repos//,/ })
           length=${#arr[@]}
-          TARGET_FILE=score.txt
-          touch $TARGET_FILE
+          FIRST_FILE=1.txt
+          SECOND_FILE=2.txt
+          THIRD_FILE=3.txt
+          FOURTH_FILE=4.txt
+          touch $FIRST_FILE $SECOND_FILE $THIRD_FILE $FOURTH_FILE
           #计数器
           count=0
           {
@@ -54,7 +57,7 @@ jobs:
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
-                    echo $str >> $TARGET_FILE
+                    echo $str >> $FIRST_FILE
                     echo "name:first  ${repoName} finished"
                     sleep 5s
               fi
@@ -65,18 +68,12 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                     index=$(($i-1))
-                    ((index=index/8))
-                    if [ `expr $index % 2` -eq 0 ];then
-                      export GITHUB_AUTH_TOKEN=${{ secrets.USER2}}
-                    else
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN10}}
-                    fi
+                    export GITHUB_AUTH_TOKEN=${{ secrets.USER2}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
-                    echo $str >> $TARGET_FILE
+                    echo $str >> $SECOND_FILE
                     echo "name:first  ${repoName} finished"
                     sleep 5s
               fi
@@ -92,7 +89,7 @@ jobs:
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
-                    echo $str >> $TARGET_FILE
+                    echo $str >> $THIRD_FILE
                     echo "name:first  ${repoName} finished"
                     sleep 5s
               fi
@@ -108,7 +105,7 @@ jobs:
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
-                    echo $str >> $TARGET_FILE
+                    echo $str >> $FOURTH_FILE
                     echo "name:first  ${repoName} finished"
                     sleep 5s
               fi
@@ -117,6 +114,12 @@ jobs:
    
            
           wait
+          TARGET_FILE=score.txt
+          touch $TARGET_FILE
+          cat $FIRST_FILE >>  $TARGET_FILE
+          cat $SECOND_FILE >>  $TARGET_FILE
+          cat $THIRD_FILE >>  $TARGET_FILE
+          cat $FOURTH_FILE >>  $TARGET_FILE
           # 下载当前仓库
           gh repo clone $GITHUB_REPOSITORY /tmp/.github
           cd /tmp/.github
