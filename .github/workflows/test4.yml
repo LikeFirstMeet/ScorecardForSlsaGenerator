@@ -46,7 +46,13 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN1}}
+                    index=$i
+                    ((index=index/8))
+                    if [ `expr $index % 2` -eq 0 ];then
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN1}}
+                    else
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN9}}
+                    fi
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -62,7 +68,13 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN2}}
+                     index=$(($i-1))
+                    ((index=index/8))
+                    if [ `expr $index % 2` -eq 0 ];then
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN2}}
+                    else
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN10}}
+                    fi
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -78,7 +90,13 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN3}}
+                    index=$(($i-2))
+                    ((index=index/8))
+                    if [ `expr $index % 2` -eq 0 ];then
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN3}}
+                    else
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN11}}
+                    fi
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -94,7 +112,13 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN4}}
+                    index=$(($i-3))
+                    ((index=index/8))
+                    if [ `expr $index % 2` -eq 0 ];then
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN4}}
+                    else
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN12}}
+                    fi
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -110,7 +134,13 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN5}}
+                    index=$(($i-4))
+                    ((index=index/8))
+                    if [ `expr $index % 2` -eq 0 ];then
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN5}}
+                    else
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN13}}
+                    fi
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -123,10 +153,16 @@ jobs:
           }&
           {
             for((i=5;i<length;i=i+8));do
-              count=$(($count+1));
+              count=$(($count-5));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN6}}
+                    index=$(($i-5))
+                    ((index=index/8))
+                    if [ `expr $index % 2` -eq 0 ];then
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN6}}
+                    else
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN14}}
+                    fi
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -142,7 +178,13 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN7}}
+                    index=$(($i-6))
+                    ((index=index/8))
+                    if [ `expr $index % 2` -eq 0 ];then
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN7}}
+                    else
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN15}}
+                    fi
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
@@ -158,7 +200,13 @@ jobs:
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
-                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN8}}
+                    index=$(($i-7))
+                    ((index=index/8))
+                    if [ `expr $index % 2` -eq 0 ];then
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN8}}
+                    else
+                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN16}}
+                    fi
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "time:${i}    repos_url:${repoName} "
                     str=""
