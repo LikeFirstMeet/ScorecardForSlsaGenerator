@@ -120,7 +120,7 @@ jobs:
               if [ $i -lt $length ];then
                     export GITHUB_AUTH_TOKEN=${{ secrets.SCORE_TS2}}
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    echo "name:fourth time:${i}    repos_url:${repoName} "
+                    echo "name:fifth time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str >> $FIFTH_FILE
