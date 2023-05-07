@@ -30,6 +30,7 @@ jobs:
                 echo "第二个"
                 scorecard --repo $repoName --format json
               fi
+              sleep 2
             done  
           }&
           
