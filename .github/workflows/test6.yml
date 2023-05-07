@@ -60,7 +60,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str >> $FIRST_FILE
                     echo "name:first  ${repoName} finished"
-                    sleep 5s
+                    sleep 2s
               fi
             done
           }&
@@ -76,7 +76,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str >> $SECOND_FILE
                     echo "name:second  ${repoName} finished"
-                    sleep 5s
+                    sleep 2s
               fi
             done
           }&
@@ -92,7 +92,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str >> $THIRD_FILE
                     echo "name:third  ${repoName} finished"
-                    sleep 5s
+                    sleep 2s
               fi
             done
           }&
@@ -108,7 +108,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str >> $FOURTH_FILE
                     echo "name:fourth  ${repoName} finished"
-                    sleep 5s
+                    sleep 2s
               fi
             done
           }&
@@ -125,7 +125,7 @@ jobs:
                     str=$(scorecard --repo $repoName --format json) || true
                     echo $str >> $FIFTH_FILE
                     echo "name:fifth  ${repoName} finished"
-                    sleep 5s
+                    sleep 2s
               fi
             done
           }&
