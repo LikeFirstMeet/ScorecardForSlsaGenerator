@@ -138,7 +138,7 @@ jobs:
           cat $SECOND_FILE >>  $TARGET_FILE
           cat $THIRD_FILE >>  $TARGET_FILE
           cat $FOURTH_FILE >>  $TARGET_FILE
-          cat $$FIFTH_FILE >>  $TARGET_FILE
+          cat $FIFTH_FILE >>  $TARGET_FILE
           # 下载当前仓库
           gh repo clone $GITHUB_REPOSITORY /tmp/.github
           cd /tmp/.github
