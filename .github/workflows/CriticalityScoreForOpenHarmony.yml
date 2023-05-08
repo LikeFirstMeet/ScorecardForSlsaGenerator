@@ -56,7 +56,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "name:first time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(criticality_score --depsdev-disable $repoName --format json) || true
+                    str=$(criticality_score -format=json -depsdev-disable $repoName ) || true
                     echo $str >> $FIRST_FILE
                     echo "name:first  ${repoName} finished"
                     sleep 4s
@@ -72,7 +72,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "name:second time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(criticality_score --depsdev-disable  $repoName --format json) || true
+                    str=$(criticality_score -format=json -depsdev-disable $repoName) || true
                     echo $str >> $SECOND_FILE
                     echo "name:second  ${repoName} finished"
                     sleep 4s
@@ -88,7 +88,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "name:third time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(criticality_score --depsdev-disable $repoName --format json) || true
+                    str=$(criticality_score -format=json -depsdev-disable $repoName) || true
                     echo $str >> $THIRD_FILE
                     echo "name:third  ${repoName} finished"
                     sleep 4s
@@ -104,7 +104,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "name:fourth time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(criticality_score --depsdev-disable $repoName --format json) || true
+                    str=$(criticality_score -format=json -depsdev-disable $repoName) || true
                     echo $str >> $FOURTH_FILE
                     echo "name:fourth  ${repoName} finished"
                     sleep 4s
@@ -121,7 +121,7 @@ jobs:
                     repoName=https://github.com/laiyoufafa/${arr[$i]}
                     echo "name:fifth time:${i}    repos_url:${repoName} "
                     str=""
-                    str=$(criticality_score --depsdev-disable $repoName --format json) || true
+                    str=$(criticality_score -format=json -depsdev-disable $repoName) || true
                     echo $str >> $FIFTH_FILE
                     echo "name:fifth  ${repoName} finished"
                     sleep 4s
