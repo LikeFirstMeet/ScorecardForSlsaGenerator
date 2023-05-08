@@ -38,11 +38,11 @@ jobs:
           wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
           tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
           mv scorecard-linux-amd64 scorecard
-          export PATH=$PATH:$GITHUB_WORKSPACE
       - name: Score Repositroies
         env: 
           GH_TOKEN: ${{secrets.GH_TOKEN}}
         run: |
+          export PATH=$PATH:$GITHUB_WORKSPACE
           FIRST_FILE=a.txt
           touch $FIRST_FILE
           length=${#RepoList[@]}
@@ -70,7 +70,7 @@ jobs:
           if [ -f "$TARGET_FILE" ]; then
             rm $TARGET_FILE
           fi
-          mv $GITHUB_WORKSPACE/$TARGET_FILE /tmp/.github/profile
+          mv $GITHUB_WORKSPACE/$FIRST_FILE /tmp/.github/profile
           
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
