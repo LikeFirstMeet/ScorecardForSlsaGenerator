@@ -45,7 +45,7 @@ jobs:
           export PATH=$PATH:$GITHUB_WORKSPACE
           FIRST_FILE=a.txt
           touch $FIRST_FILE
-          arr=$RepoList
+          arr=($RepoList)
           length=${#arr[@]}
           for((i=0;i<length;i=i+5));do
               count=$(($count+1));
