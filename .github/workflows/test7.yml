@@ -44,12 +44,15 @@ jobs:
         env: 
           GH_TOKEN: ${{secrets.GH_TOKEN}}
         run: |
+          FIRST_FILE=a.txt
+          touch $FIRST_FILE
+          length=${#RepoList[@]}
           for((i=0;i<length;i=i+5));do
               count=$(($count+1));
               echo "count value :${count}"
               if [ $i -lt $length ];then
                     export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN1}}
-                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    repoName=https://github.com/laiyoufafa/${RepoList[$i]}
                     echo "name:first time:${i}    repos_url:${repoName} "
                     str=""
                     str=$(scorecard --repo $repoName --format json) || true
