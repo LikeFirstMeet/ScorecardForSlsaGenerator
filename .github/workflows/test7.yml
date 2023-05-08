@@ -5,10 +5,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  RepoList:
+  Init:
     runs-on: ubuntu-latest
     outputs:
-      digests: ${{steps.repos.outputs}}
+      RepoList: ${{steps.repos.outputs.RepoList}}
     steps:
       - name: Get Repo List
         id: repo
@@ -25,7 +25,7 @@ jobs:
         run: |
           repos=${{steps.repo.outputs.repoList_ALL}}
           arr=(${repos//,/ })
-          echo $arr
+          echo "RepoList=${arr[@]}" >> "$GITHUB_OUTPUT"
           
       - name: Get Scorecard
         run: |
@@ -36,7 +36,9 @@ jobs:
           
   Thread-First:
     runs-on: ubuntu-latest
-    needs: [RepoList]
+    needs: [Init]
+    env: 
+      RepoList: ${{needs.Init.outputs.RepoList}}
     steps:
       - name: Score Repositroies
         env: 
