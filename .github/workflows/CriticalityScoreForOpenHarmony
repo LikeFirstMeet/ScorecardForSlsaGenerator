@@ -1,0 +1,158 @@
+name: CriticalityScoreForOpenHarmony
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Repo List
+        id: repo
+        uses: yi-Xu-0100/repo-list-generator@v1.1.1
+        with:
+          my_token: ${{ secrets.SCORE_TS }}
+          user: 'laiyoufafa'
+          # (default)max_page: 10
+          # (default)block_list:
+          # (default)allow_empty: false
+          # (default)allow_archived: true
+          
+      # /home/runner/work/ScoreCardActionForOpenHarmony/ScoreCardActionForOpenHarmony
+      # - name: current PATH
+      #  run: pwd
+     
+          
+      - name: Get Criticality_score
+        run: |
+          wget https://github.com/ossf/criticality_score/releases/download/v2.0.2/criticality_score_2.0.2_linux_amd64.tar.gz
+          tar -zxvf criticality_score_2.0.2_linux_amd64.tar.gz
+          
+          
+      - name: Score Repositroies
+        env: 
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
+        run: |
+          # 将scorecard加入环境变量
+          export PATH=$PATH:$GITHUB_WORKSPACE
+          
+          # 将仓库列表变成数组格式
+          repos=${{steps.repo.outputs.repoList_ALL}}
+          arr=(${repos//,/ })
+          length=${#arr[@]}
+          FIRST_FILE=1.txt
+          SECOND_FILE=2.txt
+          THIRD_FILE=3.txt
+          FOURTH_FILE=4.txt
+          FIFTH_FILE=5.txt
+          touch $FIRST_FILE $SECOND_FILE $THIRD_FILE $FOURTH_FILE $FIFTH_FILE
+          #计数器
+          count=0
+          {
+            for((i=0;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN1}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:first time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(criticality_score --depsdev-disable $repoName --format json) || true
+                    echo $str >> $FIRST_FILE
+                    echo "name:first  ${repoName} finished"
+                    sleep 4s
+              fi
+            done
+          }&
+          {
+            for((i=1;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.USER2}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:second time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(criticality_score --depsdev-disable  $repoName --format json) || true
+                    echo $str >> $SECOND_FILE
+                    echo "name:second  ${repoName} finished"
+                    sleep 4s
+              fi
+            done
+          }&
+          {
+            for((i=2;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.USER3}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:third time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(criticality_score --depsdev-disable $repoName --format json) || true
+                    echo $str >> $THIRD_FILE
+                    echo "name:third  ${repoName} finished"
+                    sleep 4s
+              fi
+            done
+          }&
+          {
+            for((i=3;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.USER4}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:fourth time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(criticality_score --depsdev-disable $repoName --format json) || true
+                    echo $str >> $FOURTH_FILE
+                    echo "name:fourth  ${repoName} finished"
+                    sleep 4s
+              fi
+            done
+          }&
+          
+          {
+            for((i=4;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.SCORE_TS2}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:fifth time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(criticality_score --depsdev-disable $repoName --format json) || true
+                    echo $str >> $FIFTH_FILE
+                    echo "name:fifth  ${repoName} finished"
+                    sleep 4s
+              fi
+            done
+          }&
+   
+           
+          wait
+          TARGET_FILE=criticality_scores.txt
+          touch $TARGET_FILE
+          cat $FIRST_FILE >>  $TARGET_FILE
+          cat $SECOND_FILE >>  $TARGET_FILE
+          cat $THIRD_FILE >>  $TARGET_FILE
+          cat $FOURTH_FILE >>  $TARGET_FILE
+          cat $FIFTH_FILE >>  $TARGET_FILE
+          # 下载当前仓库
+          gh repo clone $GITHUB_REPOSITORY /tmp/.github
+          cd /tmp/.github
+          if [ ! -d "profile" ]; then
+            mkdir profile
+          fi
+          if [ -f "$TARGET_FILE" ]; then
+            rm $TARGET_FILE
+          fi
+          mv $GITHUB_WORKSPACE/$TARGET_FILE /tmp/.github/profile
+          
+          gh auth setup-git -h github.com
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update profile/criticality_scores.txt from CI"
+          git push 
+         
