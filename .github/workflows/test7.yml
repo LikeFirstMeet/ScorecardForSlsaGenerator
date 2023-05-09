@@ -29,8 +29,6 @@ jobs:
   Thread-First:
     runs-on: ubuntu-latest
     needs: [Init]
-    outputs: 
-      FIRST_RESULT: ${{env.FIRST_RESULT}}
     env: 
       RepoList: ${{needs.Init.outputs.RepoList}}
     steps:
@@ -43,7 +41,7 @@ jobs:
       - name: Score Repositroies
         id: first
         env: 
-          GH_TOKEN: ${{secrets.GH_TOKEN}}
+          GH_TOKEN: ${{secrets.GH_TOKEN1}}
         run: |
           export PATH=$PATH:$GITHUB_WORKSPACE
           FIRST_FILE=a.txt
@@ -63,15 +61,28 @@ jobs:
                     sleep 3s
               fi
           done
-          echo 'FIRST_RESULT<<EOF' >> $GITHUB_ENV
-          cat $FIRST_FILE >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+        
+          export GH_TOKEN=${{secrets.GH_TOKEN}}
+          gh repo clone $GITHUB_REPOSITORY /tmp/.github
+          cd /tmp/.github
+          TARGER_FILE=a.txt
+          if [ ! -d "profile" ]; then
+            mkdir profile
+          fi
+          if [ -f "$TARGET_FILE" ]; then
+            rm $TARGET_FILE
+          fi
+          mv $GITHUB_WORKSPACE/$FIRST_FILE /tmp/.github/profile
+          gh auth setup-git -h github.com
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update profile/scorecards.txt from CI"
+          git push 
 
   Thread-Second:
       runs-on: ubuntu-latest
       needs: [Init]
-      outputs: 
-        SECOND_RESULT: ${{env.SECOND_RESULT}}
       env: 
         RepoList: ${{needs.Init.outputs.RepoList}}
       steps:
@@ -104,15 +115,27 @@ jobs:
                       sleep 3s
                 fi
             done
-            echo 'SECOND_RESULT<<EOF' >> $GITHUB_ENV
-            cat $SECOND_FILE >> $GITHUB_ENV
-            echo 'EOF' >> $GITHUB_ENV
+            export GH_TOKEN=${{secrets.GH_TOKEN}}
+            gh repo clone $GITHUB_REPOSITORY /tmp/.github
+            cd /tmp/.github
+            TARGER_FILE=b.txt
+            if [ ! -d "profile" ]; then
+              mkdir profile
+            fi
+            if [ -f "$TARGET_FILE" ]; then
+              rm $TARGET_FILE
+            fi
+            mv $GITHUB_WORKSPACE/$SECOND_FILE /tmp/.github/profile
+            gh auth setup-git -h github.com
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add .
+            git commit -m "Update profile/scorecards.txt from CI"
+            git push
 
   Thread-Third:
       runs-on: ubuntu-latest
       needs: [Init]
-      outputs: 
-        THIRD_RESULT: ${{env.THIRD_RESULT}}
       env: 
         RepoList: ${{needs.Init.outputs.RepoList}}
       steps:
@@ -145,15 +168,27 @@ jobs:
                       sleep 3s
                 fi
              done
-             echo 'THIRD_RESULT<<EOF' >> $GITHUB_ENV
-             cat $THIRD_FILE >> $GITHUB_ENV
-             echo 'EOF' >> $GITHUB_ENV
+             export GH_TOKEN=${{secrets.GH_TOKEN}}
+            gh repo clone $GITHUB_REPOSITORY /tmp/.github
+            cd /tmp/.github
+            TARGER_FILE=c.txt
+            if [ ! -d "profile" ]; then
+              mkdir profile
+            fi
+            if [ -f "$TARGET_FILE" ]; then
+              rm $TARGET_FILE
+            fi
+            mv $GITHUB_WORKSPACE/$THIRD_FILE /tmp/.github/profile
+            gh auth setup-git -h github.com
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add .
+            git commit -m "Update profile/scorecards.txt from CI"
+            git push
 
   Thread-Fourth:
       runs-on: ubuntu-latest
       needs: [Init]
-      outputs: 
-        FOURTH_RESULT: ${{env.FOURTH_RESULT}}
       env: 
         RepoList: ${{needs.Init.outputs.RepoList}}
       steps:
@@ -186,15 +221,27 @@ jobs:
                       sleep 3s
                 fi
             done
-            echo 'FOURTH_RESULT<<EOF' >> $GITHUB_ENV
-            cat $FOURTH_FILE >> $GITHUB_ENV
-            echo 'EOF' >> $GITHUB_ENV
+            export GH_TOKEN=${{secrets.GH_TOKEN}}
+            gh repo clone $GITHUB_REPOSITORY /tmp/.github
+            cd /tmp/.github
+            TARGER_FILE=d.txt
+            if [ ! -d "profile" ]; then
+              mkdir profile
+            fi
+            if [ -f "$TARGET_FILE" ]; then
+              rm $TARGET_FILE
+            fi
+            mv $GITHUB_WORKSPACE/$FOURTH_FILE /tmp/.github/profile
+            gh auth setup-git -h github.com
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add .
+            git commit -m "Update profile/scorecards.txt from CI"
+            git push
 
   Thread-Fifth:
       runs-on: ubuntu-latest
       needs: [Init]
-      outputs: 
-        FIFTH_RESULT: ${{env.FIFTH_RESULT}}
       env: 
         RepoList: ${{needs.Init.outputs.RepoList}}
       steps:
@@ -227,19 +274,27 @@ jobs:
                       sleep 3s
                 fi
             done
-            echo 'FIFTH_RESULT<<EOF' >> $GITHUB_ENV
-            cat $FIFTH_FILE >> $GITHUB_ENV
-            echo 'EOF' >> $GITHUB_ENV
+            export GH_TOKEN=${{secrets.GH_TOKEN}}
+            gh repo clone $GITHUB_REPOSITORY /tmp/.github
+            cd /tmp/.github
+            TARGER_FILE=e.txt
+            if [ ! -d "profile" ]; then
+              mkdir profile
+            fi
+            if [ -f "$TARGET_FILE" ]; then
+              rm $TARGET_FILE
+            fi
+            mv $GITHUB_WORKSPACE/$FIFTH_FILE /tmp/.github/profile
+            gh auth setup-git -h github.com
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add .
+            git commit -m "Update profile/scorecards.txt from CI"
+            git push
 
   Thread-Finally:
       runs-on: ubuntu-latest
       needs: [Thread-First,Thread-Second,Thread-Third,Thread-Fourth,Thread-Fifth]
-      env: 
-        FIRST_RESULT: ${{needs.Thread-First.outputs.FIRST_RESULT}}
-        SECOND_RESULT: ${{needs.Thread-Second.outputs.SECOND_RESULT}}
-        THIRD_RESULT: ${{needs.Thread-Third.outputs.THIRD_RESULT}}
-        FOURTH_RESULT: ${{needs.Thread-Fourth.outputs.FOURTH_RESULT}}
-        FIFTH_RESULT: ${{needs.Thread-Fifth.outputs.FIFTH_RESULT}}
       steps:
         - name: Score Repositroies
           env: 
@@ -248,19 +303,19 @@ jobs:
             # 下载当前仓库
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
+            TARGET_FILE=scorecards.txt
             if [ ! -d "profile" ]; then
               mkdir profile
             fi
             if [ -f "$TARGET_FILE" ]; then
               rm $TARGET_FILE
             fi
-            TARGET_FILE=scorecards.txt
             touch $TARGET_FILE
-            cat $FIRST_RESULT >> $TARGET_FILE
-            cat $SECOND_RESULT >> $TARGET_FILE
-            cat $THIRD_RESULT >> $TARGET_FILE
-            cat $FOURTH_RESULT >> $TARGET_FILE
-            cat $FIFTH_RESULT >> $TARGET_FILE
+            cat a.txt >> $TARGET_FILE
+            cat b.txt >> $TARGET_FILE
+            cat c.txt >> $TARGET_FILE
+            cat d.txt >> $TARGET_FILE
+            cat e.txt >> $TARGET_FILE
             
             gh auth setup-git -h github.com
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
