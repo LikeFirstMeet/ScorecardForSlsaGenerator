@@ -64,7 +64,7 @@ jobs:
                     str=$(scorecard --repo=$repoName --format=json) || true
                     echo $str >> $FIRST_FILE
                     echo "name:first  ${repoName} finished"
-                    sleep 2s
+                    sleep 2.5s
               fi
           done
           echo "FIRST_RESULT=$(cat $FIRST_FILE)" >> "$GITHUB_OUTPUT"    
@@ -107,7 +107,7 @@ jobs:
                       str=$(scorecard --repo=$repoName --format=json) || true
                       echo $str >> $SECOND_FILE
                       echo "name:second  ${repoName} finished"
-                      sleep 4s
+                      sleep 2.5s
                 fi
             done
             echo "SECOND_RESULT=$(cat $SECOND_FILE)" >> "$GITHUB_OUTPUT"
@@ -151,7 +151,7 @@ jobs:
                       str=$(scorecard --repo=$repoName --format=json) || true
                       echo $str >> $THIRD_FILE
                       echo "name:third  ${repoName} finished"
-                      sleep 2s
+                      sleep 2.5s
                 fi
              done 
              echo "THIRD_RESULT=$(cat $THIRD_FILE)" >> "$GITHUB_OUTPUT"
@@ -193,7 +193,7 @@ jobs:
                       str=$(scorecard --repo=$repoName --format=json) || true
                       echo $str >> $FOURTH_FILE
                       echo "name:fourth  ${repoName} finished"
-                      sleep 2s
+                      sleep 2.5s
                 fi
             done
             echo "FOURTH_RESULT=$(cat $FOURTH_FILE)" >> "$GITHUB_OUTPUT"  
@@ -235,7 +235,7 @@ jobs:
                       str=$(scorecard --repo=$repoName --format=json) || true
                       echo $str >> $FIFTH_FILE
                       echo "name:fifth  ${repoName} finished"
-                      sleep 2s
+                      sleep 2.5s
                 fi
             done
             echo "FIFTH_RESULT=$(cat $FIFTH_FILE)" >> "$GITHUB_OUTPUT"
