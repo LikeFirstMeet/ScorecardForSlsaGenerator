@@ -44,6 +44,7 @@ jobs:
           GH_TOKEN: ${{secrets.GH_TOKEN}}
         run: |
           export PATH=$PATH:$GITHUB_WORKSPACE
+          pwd
           FIRST_FILE=a.txt
           touch $FIRST_FILE
           arr=($RepoList)
