@@ -1,0 +1,320 @@
+name: ConcurrentCriticalityScoreForOpenHarmony
+on:
+#   schedule:
+#   - cron: "0 3 * * 1-5"
+  workflow_dispatch:
+
+jobs:
+  Init:
+    runs-on: ubuntu-latest
+    outputs:
+      RepoList: ${{steps.repos.outputs.RepoList}}
+    steps:
+      - name: Get Repo List
+        id: repo
+        uses: yi-Xu-0100/repo-list-generator@v1.1.1
+        with:
+          my_token: ${{ secrets.SCORE_TS }}
+          user: 'laiyoufafa'
+          # (default)max_page: 10
+          # (default)block_list:
+          # (default)allow_empty: false
+          # (default)allow_archived: true
+      - name: RepoList
+        id: repos
+        run: |
+          repos=${{steps.repo.outputs.repoList_ALL}}
+          arr=(${repos//,/ })
+          echo "RepoList=${arr[@]}" >> "$GITHUB_OUTPUT"    
+  Thread-First:
+    runs-on: ubuntu-latest
+    needs: [Init]
+    env: 
+      RepoList: ${{needs.Init.outputs.RepoList}}
+    steps:
+      - name: Get CriticalityScore
+        run: |
+          wget https://github.com/ossf/criticality_score/releases/download/v2.0.2/criticality_score_2.0.2_linux_amd64.tar.gz
+          tar -zxvf criticality_score_2.0.2_linux_amd64.tar.gz
+          
+      - name: Score Repositroies
+        id: first
+        env: 
+          GH_TOKEN: ${{secrets.GH_TOKEN1}}
+        run: |
+          export PATH=$PATH:$GITHUB_WORKSPACE
+          FIRST_FILE=1.txt
+          touch $FIRST_FILE
+          arr=($RepoList)
+          length=${#arr[@]}
+          for((i=0;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:first time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(criticality_score -format=json -depsdev-disable $repoName) || true
+                    echo $str >> $FIRST_FILE
+                    echo "name:first  ${repoName} finished"
+                    sleep 2s
+              fi
+          done
+        
+          export GH_TOKEN=${{secrets.GH_TOKEN}}
+          gh repo clone $GITHUB_REPOSITORY /tmp/.github
+          cd /tmp/.github
+          TARGER_FILE=profile/1.txt
+          if [ ! -d "profile" ]; then
+            mkdir profile
+          fi
+          if [ -f "$TARGET_FILE" ]; then
+            rm $TARGET_FILE
+          fi
+          mv $GITHUB_WORKSPACE/$FIRST_FILE /tmp/.github/profile
+          gh auth setup-git -h github.com
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update profile/criticality_score.txt from CI"
+          git push 
+
+  Thread-Second:
+      runs-on: ubuntu-latest
+      needs: [Init]
+      env: 
+        RepoList: ${{needs.Init.outputs.RepoList}}
+      steps:
+        - name: Get CriticalityScore
+          run: |
+            wget https://github.com/ossf/criticality_score/releases/download/v2.0.2/criticality_score_2.0.2_linux_amd64.tar.gz
+            tar -zxvf criticality_score_2.0.2_linux_amd64.tar.gz
+
+        - name: Score Repositroies
+          id: second
+          env: 
+            GH_TOKEN: ${{secrets.USER2}}
+          run: |
+            export PATH=$PATH:$GITHUB_WORKSPACE
+            SECOND_FILE=2.txt
+            touch $SECOND_FILE
+            arr=($RepoList)
+            length=${#arr[@]}
+            for((i=1;i<length;i=i+5));do
+                count=$(($count+1));
+                echo "count value :${count}"
+                if [ $i -lt $length ];then
+                      repoName=https://github.com/laiyoufafa/${arr[$i]}
+                      echo "name:second time:${i}    repos_url:${repoName} "
+                      str=""
+                      str=$(criticality_score -format=json -depsdev-disable $repoName) || true
+                      echo $str >> $SECOND_FILE
+                      echo "name:second  ${repoName} finished"
+                      sleep 2s
+                fi
+            done
+            export GH_TOKEN=${{secrets.GH_TOKEN}}
+            gh repo clone $GITHUB_REPOSITORY /tmp/.github
+            cd /tmp/.github
+            TARGER_FILE=profile/2.txt
+            if [ ! -d "profile" ]; then
+              mkdir profile
+            fi
+            if [ -f "$TARGET_FILE" ]; then
+              rm $TARGET_FILE
+            fi
+            mv $GITHUB_WORKSPACE/$SECOND_FILE /tmp/.github/profile
+            gh auth setup-git -h github.com
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add .
+            git commit -m "Update profile/criticality_score.txt from CI"
+            git push
+
+  Thread-Third:
+      runs-on: ubuntu-latest
+      needs: [Init]
+      env: 
+        RepoList: ${{needs.Init.outputs.RepoList}}
+      steps:
+        - name: Get CriticalityScore
+          run: |
+            wget https://github.com/ossf/criticality_score/releases/download/v2.0.2/criticality_score_2.0.2_linux_amd64.tar.gz
+            tar -zxvf criticality_score_2.0.2_linux_amd64.tar.gz
+
+        - name: Score Repositroies
+          id: third
+          env: 
+            GH_TOKEN: ${{secrets.USER3}}
+          run: |
+            export PATH=$PATH:$GITHUB_WORKSPACE
+            THIRD_FILE=3.txt
+            touch $THIRD_FILE
+            arr=($RepoList)
+            length=${#arr[@]}
+            for((i=2;i<length;i=i+5));do
+                count=$(($count+1));
+                echo "count value :${count}"
+                if [ $i -lt $length ];then
+                      repoName=https://github.com/laiyoufafa/${arr[$i]}
+                      echo "name:third time:${i}    repos_url:${repoName} "
+                      str=""
+                      str=$(criticality_score -format=json -depsdev-disable $repoName) || true
+                      echo $str >> $THIRD_FILE
+                      echo "name:third  ${repoName} finished"
+                      sleep 2s
+                fi
+             done
+             export GH_TOKEN=${{secrets.GH_TOKEN}}
+            gh repo clone $GITHUB_REPOSITORY /tmp/.github
+            cd /tmp/.github
+            TARGER_FILE=profile/3.txt
+            if [ ! -d "profile" ]; then
+              mkdir profile
+            fi
+            if [ -f "$TARGET_FILE" ]; then
+              rm $TARGET_FILE
+            fi
+            mv $GITHUB_WORKSPACE/$THIRD_FILE /tmp/.github/profile
+            gh auth setup-git -h github.com
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add .
+            git commit -m "Update profile/criticality_score.txt from CI"
+            git push
+
+  Thread-Fourth:
+      runs-on: ubuntu-latest
+      needs: [Init]
+      env: 
+        RepoList: ${{needs.Init.outputs.RepoList}}
+      steps:
+        - name: Get CriticalityScore
+          run: |
+            wget https://github.com/ossf/criticality_score/releases/download/v2.0.2/criticality_score_2.0.2_linux_amd64.tar.gz
+            tar -zxvf criticality_score_2.0.2_linux_amd64.tar.gz
+
+        - name: Score Repositroies
+          id: fourth
+          env: 
+            GH_TOKEN: ${{secrets.USER4}}
+          run: |
+            export PATH=$PATH:$GITHUB_WORKSPACE
+            FOURTH_FILE=4.txt
+            touch $FOURTH_FILE
+            arr=($RepoList)
+            length=${#arr[@]}
+            for((i=3;i<length;i=i+5));do
+                count=$(($count+1));
+                echo "count value :${count}"
+                if [ $i -lt $length ];then
+                      repoName=https://github.com/laiyoufafa/${arr[$i]}
+                      echo "name:fourth time:${i}    repos_url:${repoName} "
+                      str=""
+                      str=$(criticality_score -format=json -depsdev-disable $repoName) || true
+                      echo $str >> $FOURTH_FILE
+                      echo "name:fourth  ${repoName} finished"
+                      sleep 2s
+                fi
+            done
+            export GH_TOKEN=${{secrets.GH_TOKEN}}
+            gh repo clone $GITHUB_REPOSITORY /tmp/.github
+            cd /tmp/.github
+            TARGER_FILE=profile/4.txt
+            if [ ! -d "profile" ]; then
+              mkdir profile
+            fi
+            if [ -f "$TARGET_FILE" ]; then
+              rm $TARGET_FILE
+            fi
+            mv $GITHUB_WORKSPACE/$FOURTH_FILE /tmp/.github/profile
+            gh auth setup-git -h github.com
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add .
+            git commit -m "Update profile/criticality_score.txt from CI"
+            git push
+
+  Thread-Fifth:
+      runs-on: ubuntu-latest
+      needs: [Init]
+      env: 
+        RepoList: ${{needs.Init.outputs.RepoList}}
+      steps:
+        - name: Get CriticalityScore
+          run: |
+            wget https://github.com/ossf/criticality_score/releases/download/v2.0.2/criticality_score_2.0.2_linux_amd64.tar.gz
+            tar -zxvf criticality_score_2.0.2_linux_amd64.tar.gz
+            
+        - name: Score Repositroies
+          id: fifth
+          env: 
+            GH_TOKEN: ${{secrets.SCORE_TS2}}
+          run: |
+            export PATH=$PATH:$GITHUB_WORKSPACE
+            FIFTH_FILE=5.txt
+            touch $FIFTH_FILE
+            arr=($RepoList)
+            length=${#arr[@]}
+            for((i=4;i<length;i=i+5));do
+                count=$(($count+1));
+                echo "count value :${count}"
+                if [ $i -lt $length ];then
+                      repoName=https://github.com/laiyoufafa/${arr[$i]}
+                      echo "name:fifth time:${i}    repos_url:${repoName} "
+                      str=""
+                      str=$(criticality_score -format=json -depsdev-disable $repoName) || true
+                      echo $str >> $FIFTH_FILE
+                      echo "name:fifth  ${repoName} finished"
+                      sleep 2s
+                fi
+            done
+            export GH_TOKEN=${{secrets.GH_TOKEN}}
+            gh repo clone $GITHUB_REPOSITORY /tmp/.github
+            cd /tmp/.github
+            TARGER_FILE=profile/5.txt
+            if [ ! -d "profile" ]; then
+              mkdir profile
+            fi
+            if [ -f "$TARGET_FILE" ]; then
+              rm $TARGET_FILE
+            fi
+            mv $GITHUB_WORKSPACE/$FIFTH_FILE /tmp/.github/profile
+            gh auth setup-git -h github.com
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add .
+            git commit -m "Update profile/criticality_score.txt from CI"
+            git push
+
+  Thread-Finally:
+      runs-on: ubuntu-latest
+      needs: [Thread-First,Thread-Second,Thread-Third,Thread-Fourth,Thread-Fifth]
+      steps:
+        - name: together all scores
+          env: 
+            GH_TOKEN: ${{secrets.GH_TOKEN}}
+          run: |
+            # 下载当前仓库
+            gh repo clone $GITHUB_REPOSITORY /tmp/.github
+            cd /tmp/.github
+            TARGET_FILE=profile/criticality_score.txt
+            if [ ! -d "profile" ]; then
+              mkdir profile
+            fi
+            if [ -f "$TARGET_FILE" ]; then
+              rm $TARGET_FILE
+            fi
+            touch $TARGET_FILE
+            cat profile/1.txt >> $TARGET_FILE
+            cat profile/2.txt >> $TARGET_FILE
+            cat profile/3.txt >> $TARGET_FILE
+            cat profile/4.txt >> $TARGET_FILE
+            cat profile/5.txt >> $TARGET_FILE
+            
+            gh auth setup-git -h github.com
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add .
+            git commit -m "Update profile/criticality_score.txt from CI"
+            git push 
