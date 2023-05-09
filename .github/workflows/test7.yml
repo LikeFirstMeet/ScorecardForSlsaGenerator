@@ -26,6 +26,11 @@ jobs:
           repos=${{steps.repo.outputs.repoList_ALL}}
           arr=(${repos//,/ })
           echo "RepoList=${arr[@]}" >> "$GITHUB_OUTPUT"
+      - name: Get Scorecard
+        run: |
+          wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
+          tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
+          mv scorecard-linux-amd64 scorecard
           
   Thread-First:
     runs-on: ubuntu-latest
@@ -33,11 +38,7 @@ jobs:
     env: 
       RepoList: ${{needs.Init.outputs.RepoList}}
     steps:
-      - name: Get Scorecard
-        run: |
-          wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
-          tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
-          mv scorecard-linux-amd64 scorecard
+      
       - name: Score Repositroies
         env: 
           GH_TOKEN: ${{secrets.GH_TOKEN}}
