@@ -1,4 +1,4 @@
-name: AsleepConcurrentScoreForOpenHarmony
+name: Test1
 on:
   workflow_dispatch:
 
