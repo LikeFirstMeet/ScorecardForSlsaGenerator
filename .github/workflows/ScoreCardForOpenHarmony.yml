@@ -1,5 +1,7 @@
-name: ShowScorecardForOpenHarmony
+name: ScorecardForOpenHarmony
 on:
+  schedule:
+  - cron: "0 14 * * 1-5"
   workflow_dispatch:
 
 jobs:
@@ -26,21 +28,119 @@ jobs:
         run: |
           wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
           tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
-          cp scorecard-linux-amd64 scorecard
+          mv scorecard-linux-amd64 scorecard
           
           
       - name: Score Repositroies
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        env: 
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
         run: |
-          env
           # 将scorecard加入环境变量
           export PATH=$PATH:$GITHUB_WORKSPACE
+          
           # 将仓库列表变成数组格式
           repos=${{steps.repo.outputs.repoList_ALL}}
           arr=(${repos//,/ })
-          # 用于存储结果文件
-          export TARGET_FILE=/tmp/.github/profile/scores.txt
+          length=${#arr[@]}
+          FIRST_FILE=1.txt
+          SECOND_FILE=2.txt
+          THIRD_FILE=3.txt
+          FOURTH_FILE=4.txt
+          FIFTH_FILE=5.txt
+          touch $FIRST_FILE $SECOND_FILE $THIRD_FILE $FOURTH_FILE $FIFTH_FILE
+          #计数器
+          count=0
+          {
+            for((i=0;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN1}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:first time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str >> $FIRST_FILE
+                    echo "name:first  ${repoName} finished"
+                    sleep 4s
+              fi
+            done
+          }&
+          {
+            for((i=1;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.USER2}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:second time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str >> $SECOND_FILE
+                    echo "name:second  ${repoName} finished"
+                    sleep 4s
+              fi
+            done
+          }&
+          {
+            for((i=2;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.USER3}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:third time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str >> $THIRD_FILE
+                    echo "name:third  ${repoName} finished"
+                    sleep 4s
+              fi
+            done
+          }&
+          {
+            for((i=3;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.USER4}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:fourth time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str >> $FOURTH_FILE
+                    echo "name:fourth  ${repoName} finished"
+                    sleep 4s
+              fi
+            done
+          }&
+          
+          {
+            for((i=4;i<length;i=i+5));do
+              count=$(($count+1));
+              echo "count value :${count}"
+              if [ $i -lt $length ];then
+                    export GITHUB_AUTH_TOKEN=${{ secrets.SCORE_TS2}}
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "name:fifth time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json) || true
+                    echo $str >> $FIFTH_FILE
+                    echo "name:fifth  ${repoName} finished"
+                    sleep 4s
+              fi
+            done
+          }&
+   
+           
+          wait
+          TARGET_FILE=score.txt
+          touch $TARGET_FILE
+          cat $FIRST_FILE >>  $TARGET_FILE
+          cat $SECOND_FILE >>  $TARGET_FILE
+          cat $THIRD_FILE >>  $TARGET_FILE
+          cat $FOURTH_FILE >>  $TARGET_FILE
+          cat $FIFTH_FILE >>  $TARGET_FILE
           # 下载当前仓库
           gh repo clone $GITHUB_REPOSITORY /tmp/.github
           cd /tmp/.github
@@ -50,27 +150,12 @@ jobs:
           if [ -f "$TARGET_FILE" ]; then
             rm $TARGET_FILE
           fi
-          touch $TARGET_FILE
-          count=0
-          for i in ${arr[@]};do
-             if [ $(($count%2)) -eq 0 ]; then
-                export GH_TOKEN=${{ secrets.GH_TOKEN1 }}
-             else
-                export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
-             fi
-             repoName=https://github.com/laiyoufafa/$i
-             count=$(($count+1))
-             echo "time:${count}    repos_url:${repoName} "
-             str=""
-             str=$(scorecard --repo $repoName --format json) || true
-             echo $str >> $TARGET_FILE
-             echo "times:${count} ${repoName} finished"
-             sleep 3s
-          done
+          mv $GITHUB_WORKSPACE/$TARGET_FILE /tmp/.github/profile
           
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add .
           git commit -m "Update profile/scores.txt from CI"
-          git push
+          git push 
+         
