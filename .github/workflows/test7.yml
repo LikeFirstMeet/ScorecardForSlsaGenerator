@@ -46,6 +46,7 @@ jobs:
           export PATH=$PATH:$GITHUB_WORKSPACE
           echo "==========================="
           pwd
+          ls -ll
           echo "==========================="
           FIRST_FILE=a.txt
           touch $FIRST_FILE
