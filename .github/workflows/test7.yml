@@ -43,7 +43,7 @@ jobs:
       - name: Score Repositroies
         id: first
         env: 
-          GH_TOKEN: ${{secrets.GH_TOKEN1}}
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
         run: |
           export PATH=$PATH:$GITHUB_WORKSPACE
           echo "==========================="
@@ -144,7 +144,6 @@ jobs:
                 count=$(($count+1));
                 echo "count value :${count}"
                 if [ $i -lt $length ];then
-                      export GITHUB_AUTH_TOKEN=${{ secrets.GH_TOKEN1}}
                       repoName=https://github.com/laiyoufafa/${arr[$i]}
                       echo "name:third time:${i}    repos_url:${repoName} "
                       str=""
