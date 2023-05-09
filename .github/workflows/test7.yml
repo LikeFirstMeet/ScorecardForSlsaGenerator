@@ -1,14 +1,10 @@
 name: Test7
 on:
-#   schedule:
-#   - cron: "0 3 * * 1-5"
   workflow_dispatch:
 
 jobs:
-  Init:
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      RepoList: ${{steps.repos.outputs.RepoList}}
     steps:
       - name: Get Repo List
         id: repo
@@ -20,307 +16,250 @@ jobs:
           # (default)block_list:
           # (default)allow_empty: false
           # (default)allow_archived: true
-      - name: RepoList
-        id: repos
-        run: |
-          repos=${{steps.repo.outputs.repoList_ALL}}
-          arr=(${repos//,/ })
-          echo "RepoList=${arr[@]}" >> "$GITHUB_OUTPUT"    
-  Thread-First:
-    runs-on: ubuntu-latest
-    needs: [Init]
-    env: 
-      RepoList: ${{needs.Init.outputs.RepoList}}
-    steps:
+          
+      # /home/runner/work/ScoreCardActionForOpenHarmony/ScoreCardActionForOpenHarmony
+      # - name: current PATH
+      #  run: pwd
+     
+          
       - name: Get Scorecard
         run: |
           wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
           tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
+          cp scorecard-linux-amd64 scorecard-first
+          cp scorecard-linux-amd64 scorecard-second
+          cp scorecard-linux-amd64 scorecard-third
+          cp scorecard-linux-amd64 scorecard-fourth
+          cp scorecard-linux-amd64 scorecard-fifth
+          cp scorecard-linux-amd64 scorecard-sixth
+          cp scorecard-linux-amd64 scorecard-seventh
           mv scorecard-linux-amd64 scorecard
           
+          
       - name: Score Repositroies
-        id: first
-        env: 
-          GH_TOKEN: ${{secrets.GH_TOKEN1}}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          env
+          # 将scorecard加入环境变量
           export PATH=$PATH:$GITHUB_WORKSPACE
-          FIRST_FILE=a.txt
-          touch $FIRST_FILE
-          arr=($RepoList)
-          length=${#arr[@]}
-          for((i=0;i<length;i=i+5));do
-              count=$(($count+1));
-              echo "count value :${count}"
-              if [ $i -lt $length ];then
-                    repoName=https://github.com/laiyoufafa/${arr[$i]}
-                    echo "name:first time:${i}    repos_url:${repoName} "
-                    str=""
-                    str=$(scorecard --repo=$repoName --format=json) || true
-                    echo $str >> $FIRST_FILE
-                    echo "name:first  ${repoName} finished"
-                    sleep 2s
-              fi
-          done
-        
-          export GH_TOKEN=${{secrets.GH_TOKEN}}
+          # 用于存储结果文件
+          export TARGET_FILE=/tmp/.github/profile/scores.txt
+          export TMP_FILE_FIRST=tmp1.txt
+          export TMP_FILE_SECOND=tmp2.txt
+          export TMP_FILE_THIRD=tmp3.txt
+          export TMP_FILE_FOURTH=tmp4.txt
+          export TMP_FILE_FIFTH=tmp5.txt
+          export TMP_FILE_SIXTH=tmp6.txt
+          export TMP_FILE_SEVENTH=tmp7.txt
+          touch $TMP_FILE_FIRST
+          touch $TMP_FILE_SECOND
+          touch $TMP_FILE_THIRD
+          touch $TMP_FILE_FOURTH
+          touch $TMP_FILE_FIFTH
+          touch $TMP_FILE_SIXTH
+          touch $TMP_FILE_SEVENTH
+          
+          # 下载当前仓库
           gh repo clone $GITHUB_REPOSITORY /tmp/.github
           cd /tmp/.github
-          TARGER_FILE=profile/a.txt
           if [ ! -d "profile" ]; then
             mkdir profile
           fi
           if [ -f "$TARGET_FILE" ]; then
             rm $TARGET_FILE
           fi
-          mv $GITHUB_WORKSPACE/$FIRST_FILE /tmp/.github/profile
+          touch $TARGET_FILE
+          
+          # 将仓库列表变成数组格式
+          repos=${{steps.repo.outputs.repoList_ALL}}
+          arr=(${repos//,/ })
+          length=${#arr[@]}
+          
+          
+          #1.创建有名管道
+          [ -e ./fd1 ] || mkfifo ./fd1
+          exec 3<> ./fd1
+          rm -rf ./fd1
+          #2.创建令牌
+          for i in `seq 1 2`;
+          do
+            echo >&3
+          done
+          
+          #计数器
+          count=0 
+          #拿出令牌进行并发操作
+          for((i=0;i<length;i=i+8));do
+              count=$(($count+1));
+              read -u3
+              {
+                echo "count value :${count}"
+                if [ `expr ${count} % 2` -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN }}
+                else
+                  export GH_TOKEN=${{ secrets.GH_TOKEN9 }}
+                fi
+                if [ $i -lt $length ];then
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >> $TARGET_FILE 
+                    echo "name:first  ${repoName} finished"
+                fi
+                
+                if [ `expr ${count} % 2` -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN2 }}
+                else
+                  export GH_TOKEN=${{ secrets.GH_TOKEN10 }}
+                fi
+                i=$(($i+1))
+                if [ $i -lt $length ];then
+                    
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard-first --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-first --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-first --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >>  $TMP_FILE_FIRST
+                    echo "name:second  ${repoName} finished"
+                 fi
+                 
+                 if [ `expr ${count} % 2` -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN3 }}
+                 else
+                  export GH_TOKEN=${{ secrets.GH_TOKEN11 }}
+                 fi
+                 
+                 i=$(($i+1))
+                 if [ $i -lt $length ];then
+                    
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard-second --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-second --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-second --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >> $TMP_FILE_SECOND
+                    echo "name third ${repoName} finished"
+                 fi
+                 if [ `expr ${count} % 2` -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN4 }}
+                 else
+                  export GH_TOKEN=${{ secrets.GH_TOKEN12 }}
+                 fi
+                 
+                 i=$(($i+1))
+                 if [ $i -lt $length ];then
+
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard-third --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-third --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-third --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >> $TMP_FILE_THIRD
+                    echo "name:fourth ${repoName}  finished"
+                 fi
+                 if [ `expr ${count} % 2` -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN5 }}
+                 else
+                  export GH_TOKEN=${{ secrets.GH_TOKEN13 }}
+                 fi
+                 i=$(($i+1))
+                 if [ $i -lt $length ];then
+
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard-fourth --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-fourth --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-fourth --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >> $TMP_FILE_FOURTH
+                    echo "name:fifth ${repoName}  finished"
+                 fi
+                 if [ `expr ${count} % 2` -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN6 }}
+                 else
+                  export GH_TOKEN=${{ secrets.GH_TOKEN14 }}
+                 fi
+                 i=$(($i+1))
+                 if [ $i -lt $length ];then
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard-fifth --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-fifth --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-fifth --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >> $TMP_FILE_FIFTH
+                    echo "name:sixth  ${repoName} finished"
+                fi
+                if [ `expr ${count} % 2` -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN7 }}
+                else
+                  export GH_TOKEN=${{ secrets.GH_TOKEN15 }}
+                 fi
+                i=$(($i+1))
+                if [ $i -lt $length ];then
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard-sixth --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-sixth --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-sixth --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >>  $TMP_FILE_SIXTH
+                    echo "name:seventh  ${repoName} finished"
+                 fi
+                 if [ `expr ${count} % 2` -eq 0 ]; then
+                  export GH_TOKEN=${{ secrets.GH_TOKEN8 }}
+                 else
+                  export GH_TOKEN=${{ secrets.GH_TOKEN16 }}
+                 fi
+                 i=$(($i+1))
+                 if [ $i -lt $length ];then
+                    repoName=https://github.com/laiyoufafa/${arr[$i]}
+                    echo "time:${i}    repos_url:${repoName} "
+                    str=""
+                    str=$(scorecard-seventh --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-seventh --repo $repoName --format json)  || sleep 2|
+                    str=$(scorecard-seventh --repo $repoName --format json)  ||
+                    str=$(echo "faild on ${repoName}") 
+                    echo $str >> $TMP_FILE_SEVENTH
+                    echo "name:eighth ${repoName} finished"
+                 fi
+                 
+                 echo >&3
+              }&
+              sleep 60
+          done
+          
+          
+          
+          wait
+          #关闭文件描述读写
+          exec 3<&-
+          exec 3>&-
+          cat $GITHUB_WORKSPACE/$TMP_FILE_FIRST >> $TARGET_FILE
+          cat $GITHUB_WORKSPACE/$TMP_FILE_SECOND >> $TARGET_FILE
+          cat $GITHUB_WORKSPACE/$TMP_FILE_THIRD >> $TARGET_FILE
+          cat $GITHUB_WORKSPACE/$TMP_FILE_FOURTH >> $TARGET_FILE
+          cat $GITHUB_WORKSPACE/$TMP_FILE_FIFTH >> $TARGET_FILE
+          cat $GITHUB_WORKSPACE/$TMP_FILE_SIXTH >> $TARGET_FILE
+          cat $GITHUB_WORKSPACE/$TMP_FILE_SEVENTH >> $TARGET_FILE
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add .
-          git commit -m "Update profile/scorecards.txt from CI"
-          git push 
-
-  Thread-Second:
-      runs-on: ubuntu-latest
-      needs: [Init]
-      env: 
-        RepoList: ${{needs.Init.outputs.RepoList}}
-      steps:
-        - name: Get Scorecard
-          run: |
-            wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
-            tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
-            mv scorecard-linux-amd64 scorecard
-
-        - name: Score Repositroies
-          id: second
-          env: 
-            GH_TOKEN: ${{secrets.USER2}}
-          run: |
-            export PATH=$PATH:$GITHUB_WORKSPACE
-            SECOND_FILE=b.txt
-            touch $SECOND_FILE
-            arr=($RepoList)
-            length=${#arr[@]}
-            for((i=1;i<length;i=i+5));do
-                count=$(($count+1));
-                echo "count value :${count}"
-                if [ $i -lt $length ];then
-                      repoName=https://github.com/laiyoufafa/${arr[$i]}
-                      echo "name:second time:${i}    repos_url:${repoName} "
-                      str=""
-                      str=$(scorecard --repo=$repoName --format=json) || true
-                      echo $str >> $SECOND_FILE
-                      echo "name:second  ${repoName} finished"
-                      sleep 2s
-                fi
-            done
-            export GH_TOKEN=${{secrets.GH_TOKEN}}
-            gh repo clone $GITHUB_REPOSITORY /tmp/.github
-            cd /tmp/.github
-            TARGER_FILE=profile/b.txt
-            if [ ! -d "profile" ]; then
-              mkdir profile
-            fi
-            if [ -f "$TARGET_FILE" ]; then
-              rm $TARGET_FILE
-            fi
-            mv $GITHUB_WORKSPACE/$SECOND_FILE /tmp/.github/profile
-            gh auth setup-git -h github.com
-            git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git config --global user.name "github-actions[bot]"
-            git add .
-            git commit -m "Update profile/scorecards.txt from CI"
-            git push
-
-  Thread-Third:
-      runs-on: ubuntu-latest
-      needs: [Init]
-      env: 
-        RepoList: ${{needs.Init.outputs.RepoList}}
-      steps:
-        - name: Get Scorecard
-          run: |
-            wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
-            tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
-            mv scorecard-linux-amd64 scorecard
-
-        - name: Score Repositroies
-          id: third
-          env: 
-            GH_TOKEN: ${{secrets.USER3}}
-          run: |
-            export PATH=$PATH:$GITHUB_WORKSPACE
-            THIRD_FILE=c.txt
-            touch $THIRD_FILE
-            arr=($RepoList)
-            length=${#arr[@]}
-            for((i=2;i<length;i=i+5));do
-                count=$(($count+1));
-                echo "count value :${count}"
-                if [ $i -lt $length ];then
-                      repoName=https://github.com/laiyoufafa/${arr[$i]}
-                      echo "name:third time:${i}    repos_url:${repoName} "
-                      str=""
-                      str=$(scorecard --repo=$repoName --format=json) || true
-                      echo $str >> $THIRD_FILE
-                      echo "name:third  ${repoName} finished"
-                      sleep 2s
-                fi
-             done
-             export GH_TOKEN=${{secrets.GH_TOKEN}}
-            gh repo clone $GITHUB_REPOSITORY /tmp/.github
-            cd /tmp/.github
-            TARGER_FILE=profile/c.txt
-            if [ ! -d "profile" ]; then
-              mkdir profile
-            fi
-            if [ -f "$TARGET_FILE" ]; then
-              rm $TARGET_FILE
-            fi
-            mv $GITHUB_WORKSPACE/$THIRD_FILE /tmp/.github/profile
-            gh auth setup-git -h github.com
-            git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git config --global user.name "github-actions[bot]"
-            git add .
-            git commit -m "Update profile/scorecards.txt from CI"
-            git push
-
-  Thread-Fourth:
-      runs-on: ubuntu-latest
-      needs: [Init]
-      env: 
-        RepoList: ${{needs.Init.outputs.RepoList}}
-      steps:
-        - name: Get Scorecard
-          run: |
-            wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
-            tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
-            mv scorecard-linux-amd64 scorecard
-
-        - name: Score Repositroies
-          id: fourth
-          env: 
-            GH_TOKEN: ${{secrets.USER4}}
-          run: |
-            export PATH=$PATH:$GITHUB_WORKSPACE
-            FOURTH_FILE=d.txt
-            touch $FOURTH_FILE
-            arr=($RepoList)
-            length=${#arr[@]}
-            for((i=3;i<length;i=i+5));do
-                count=$(($count+1));
-                echo "count value :${count}"
-                if [ $i -lt $length ];then
-                      repoName=https://github.com/laiyoufafa/${arr[$i]}
-                      echo "name:fourth time:${i}    repos_url:${repoName} "
-                      str=""
-                      str=$(scorecard --repo=$repoName --format=json) || true
-                      echo $str >> $FOURTH_FILE
-                      echo "name:fourth  ${repoName} finished"
-                      sleep 2s
-                fi
-            done
-            export GH_TOKEN=${{secrets.GH_TOKEN}}
-            gh repo clone $GITHUB_REPOSITORY /tmp/.github
-            cd /tmp/.github
-            TARGER_FILE=profile/d.txt
-            if [ ! -d "profile" ]; then
-              mkdir profile
-            fi
-            if [ -f "$TARGET_FILE" ]; then
-              rm $TARGET_FILE
-            fi
-            mv $GITHUB_WORKSPACE/$FOURTH_FILE /tmp/.github/profile
-            gh auth setup-git -h github.com
-            git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git config --global user.name "github-actions[bot]"
-            git add .
-            git commit -m "Update profile/scorecards.txt from CI"
-            git push
-
-  Thread-Fifth:
-      runs-on: ubuntu-latest
-      needs: [Init]
-      env: 
-        RepoList: ${{needs.Init.outputs.RepoList}}
-      steps:
-        - name: Get Scorecard
-          run: |
-            wget https://github.com/ossf/scorecard/releases/download/v4.10.5/scorecard_4.10.5_linux_amd64.tar.gz
-            tar -zxvf scorecard_4.10.5_linux_amd64.tar.gz
-            mv scorecard-linux-amd64 scorecard
-
-        - name: Score Repositroies
-          id: fifth
-          env: 
-            GH_TOKEN: ${{secrets.SCORE_TS2}}
-          run: |
-            export PATH=$PATH:$GITHUB_WORKSPACE
-            FIFTH_FILE=e.txt
-            touch $FIFTH_FILE
-            arr=($RepoList)
-            length=${#arr[@]}
-            for((i=4;i<length;i=i+5));do
-                count=$(($count+1));
-                echo "count value :${count}"
-                if [ $i -lt $length ];then
-                      repoName=https://github.com/laiyoufafa/${arr[$i]}
-                      echo "name:fifth time:${i}    repos_url:${repoName} "
-                      str=""
-                      str=$(scorecard --repo=$repoName --format=json) || true
-                      echo $str >> $FIFTH_FILE
-                      echo "name:fifth  ${repoName} finished"
-                      sleep 2s
-                fi
-            done
-            export GH_TOKEN=${{secrets.GH_TOKEN}}
-            gh repo clone $GITHUB_REPOSITORY /tmp/.github
-            cd /tmp/.github
-            TARGER_FILE=profile/e.txt
-            if [ ! -d "profile" ]; then
-              mkdir profile
-            fi
-            if [ -f "$TARGET_FILE" ]; then
-              rm $TARGET_FILE
-            fi
-            mv $GITHUB_WORKSPACE/$FIFTH_FILE /tmp/.github/profile
-            gh auth setup-git -h github.com
-            git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git config --global user.name "github-actions[bot]"
-            git add .
-            git commit -m "Update profile/scorecards.txt from CI"
-            git push
-
-  Thread-Finally:
-      runs-on: ubuntu-latest
-      needs: [Thread-First,Thread-Second,Thread-Third,Thread-Fourth,Thread-Fifth]
-      steps:
-        - name: Score Repositroies
-          env: 
-            GH_TOKEN: ${{secrets.GH_TOKEN}}
-          run: |
-            # 下载当前仓库
-            gh repo clone $GITHUB_REPOSITORY /tmp/.github
-            cd /tmp/.github
-            TARGET_FILE=profile/scorecards.txt
-            if [ ! -d "profile" ]; then
-              mkdir profile
-            fi
-            if [ -f "$TARGET_FILE" ]; then
-              rm $TARGET_FILE
-            fi
-            touch $TARGET_FILE
-            cat profile/a.txt >> $TARGET_FILE
-            cat profile/b.txt >> $TARGET_FILE
-            cat profile/c.txt >> $TARGET_FILE
-            cat profile/d.txt >> $TARGET_FILE
-            cat profile/e.txt >> $TARGET_FILE
-            
-            gh auth setup-git -h github.com
-            git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git config --global user.name "github-actions[bot]"
-            git add .
-            git commit -m "Update profile/scorecards.txt from CI"
-            git push 
-
+          git commit -m "Update profile/scores.txt from CI"
+          git push
