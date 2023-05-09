@@ -14,6 +14,7 @@ jobs:
             # 下载当前仓库
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
+            ls -ll
             TARGET_FILE=scorecards.txt
             if [ ! -d "profile" ]; then
               mkdir profile
