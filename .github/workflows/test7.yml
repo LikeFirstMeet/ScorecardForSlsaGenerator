@@ -303,7 +303,7 @@ jobs:
             # 下载当前仓库
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
-            TARGET_FILE=scorecards.txt
+            TARGET_FILE=profile/scorecards.txt
             if [ ! -d "profile" ]; then
               mkdir profile
             fi
@@ -311,11 +311,11 @@ jobs:
               rm $TARGET_FILE
             fi
             touch $TARGET_FILE
-            cat a.txt >> $TARGET_FILE
-            cat b.txt >> $TARGET_FILE
-            cat c.txt >> $TARGET_FILE
-            cat d.txt >> $TARGET_FILE
-            cat e.txt >> $TARGET_FILE
+            cat profile/a.txt >> $TARGET_FILE
+            cat profile/b.txt >> $TARGET_FILE
+            cat profile/c.txt >> $TARGET_FILE
+            cat profile/d.txt >> $TARGET_FILE
+            cat profile/e.txt >> $TARGET_FILE
             
             gh auth setup-git -h github.com
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
