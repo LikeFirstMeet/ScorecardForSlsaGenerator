@@ -65,7 +65,7 @@ jobs:
           export GH_TOKEN=${{secrets.GH_TOKEN}}
           gh repo clone $GITHUB_REPOSITORY /tmp/.github
           cd /tmp/.github
-          TARGER_FILE=a.txt
+          TARGER_FILE=profile/a.txt
           if [ ! -d "profile" ]; then
             mkdir profile
           fi
@@ -118,7 +118,7 @@ jobs:
             export GH_TOKEN=${{secrets.GH_TOKEN}}
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
-            TARGER_FILE=b.txt
+            TARGER_FILE=profile/b.txt
             if [ ! -d "profile" ]; then
               mkdir profile
             fi
@@ -171,7 +171,7 @@ jobs:
              export GH_TOKEN=${{secrets.GH_TOKEN}}
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
-            TARGER_FILE=c.txt
+            TARGER_FILE=profile/c.txt
             if [ ! -d "profile" ]; then
               mkdir profile
             fi
@@ -224,7 +224,7 @@ jobs:
             export GH_TOKEN=${{secrets.GH_TOKEN}}
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
-            TARGER_FILE=d.txt
+            TARGER_FILE=profile/d.txt
             if [ ! -d "profile" ]; then
               mkdir profile
             fi
@@ -277,7 +277,7 @@ jobs:
             export GH_TOKEN=${{secrets.GH_TOKEN}}
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
-            TARGER_FILE=e.txt
+            TARGER_FILE=profile/e.txt
             if [ ! -d "profile" ]; then
               mkdir profile
             fi
