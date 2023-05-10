@@ -27,7 +27,7 @@ jobs:
           repos=${{steps.repo.outputs.repoList_ALL}}
           arr=(${repos//,/ })
           echo "RepoList=${arr[@]}" >> "$GITHUB_OUTPUT"
-          now=`date '+%Y-%m-%d_%H'`
+          now=`date '+%Y-%m-%d_%H_%M'`
           echo "today=$now" >> "$GITHUB_OUTPUT"
           
   Thread-First:
@@ -51,9 +51,6 @@ jobs:
           export PATH=$PATH:$GITHUB_WORKSPACE
           arr=($RepoList)
           length=${#arr[@]}
-          echo "========================================"
-          echo $Date
-          echo "========================================"
           mkdir $Date
           cd $Date
           for((i=0;i<length;i=i+5));do
@@ -75,7 +72,7 @@ jobs:
           export GH_TOKEN=${{secrets.GH_TOKEN}}
           gh repo clone $GITHUB_REPOSITORY /tmp/.github
           cd /tmp/.github
-          mv $GITHUB_WORKSPACE/$Date /tmp/.github/
+          cp -r $GITHUB_WORKSPACE/$Date /tmp/.github/
           gh auth setup-git -h github.com
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
@@ -124,7 +121,7 @@ jobs:
             export GH_TOKEN=${{secrets.GH_TOKEN}}
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
-            mv $GITHUB_WORKSPACE/$Date /tmp/.github/
+            cp -r $GITHUB_WORKSPACE/$Date /tmp/.github/
             gh auth setup-git -h github.com
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             git config --global user.name "github-actions[bot]"
@@ -173,7 +170,7 @@ jobs:
              export GH_TOKEN=${{secrets.GH_TOKEN}}
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
-            mv $GITHUB_WORKSPACE/$Date /tmp/.github/
+            cp -r $GITHUB_WORKSPACE/$Date /tmp/.github/
             gh auth setup-git -h github.com
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             git config --global user.name "github-actions[bot]"
@@ -222,7 +219,7 @@ jobs:
             export GH_TOKEN=${{secrets.GH_TOKEN}}
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
-            mv $GITHUB_WORKSPACE/$Date /tmp/.github/
+            cp -r $GITHUB_WORKSPACE/$Date /tmp/.github/
             gh auth setup-git -h github.com
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             git config --global user.name "github-actions[bot]"
@@ -271,7 +268,7 @@ jobs:
             export GH_TOKEN=${{secrets.GH_TOKEN}}
             gh repo clone $GITHUB_REPOSITORY /tmp/.github
             cd /tmp/.github
-            mv $GITHUB_WORKSPACE/$Date /tmp/.github/
+            cp -r $GITHUB_WORKSPACE/$Date /tmp/.github/
             gh auth setup-git -h github.com
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             git config --global user.name "github-actions[bot]"
