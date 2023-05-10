@@ -50,6 +50,9 @@ jobs:
           export PATH=$PATH:$GITHUB_WORKSPACE
           arr=($RepoList)
           length=${#arr[@]}
+          echo "========================================"
+          echo $Date
+          echo "========================================"
           mkdir $Date
           cd $Date
           for((i=0;i<length;i=i+5));do
