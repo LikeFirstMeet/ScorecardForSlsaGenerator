@@ -247,7 +247,8 @@ jobs:
             export PATH=$PATH:$GITHUB_WORKSPACE
             arr=($RepoList)
             length=${#arr[@]}
-            mkdir
+            mkdir $Date
+            cd $Date
             for((i=4;i<length;i=i+5));do
                 count=$(($count+1));
                 echo "count value :${count}"
