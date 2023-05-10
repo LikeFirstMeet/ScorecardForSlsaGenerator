@@ -1,7 +1,7 @@
 name: TestConcurrentScoreForOpenHarmony
 on:
-#   schedule:
-#   - cron: "0 3 * * 1-5"
+  schedule:
+  - cron: "0 3 * * 1-5"
   workflow_dispatch:
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
           repos=${{steps.repo.outputs.repoList_ALL}}
           arr=(${repos//,/ })
           echo "RepoList=${arr[@]}" >> "$GITHUB_OUTPUT"
-          now=`date '+%Y-%m-%d_%H_%M'`
+          now=`date '+%Y-%m-%d_%H:%M'`
           echo "today=$now" >> "$GITHUB_OUTPUT"
           
   Thread-First:
