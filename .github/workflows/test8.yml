@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       RepoList: ${{steps.repos.outputs.RepoList}}
-      Date: ${{steps.repos.outputs.Date}}
+      Date: ${{steps.repos.outputs.today}}
     steps:
       - name: Get Repo List
         id: repo
@@ -247,6 +247,7 @@ jobs:
             export PATH=$PATH:$GITHUB_WORKSPACE
             arr=($RepoList)
             length=${#arr[@]}
+            mkdir
             for((i=4;i<length;i=i+5));do
                 count=$(($count+1));
                 echo "count value :${count}"
