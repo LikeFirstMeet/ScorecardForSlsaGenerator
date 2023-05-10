@@ -27,7 +27,8 @@ jobs:
           repos=${{steps.repo.outputs.repoList_ALL}}
           arr=(${repos//,/ })
           echo "RepoList=${arr[@]}" >> "$GITHUB_OUTPUT"
-          echo "today=`date '+%Y-%m-%d_%H`" >> "$GITHUB_OUTPUT"
+          now=`date '+%Y-%m-%d_%H`
+          echo "today=$now" >> "$GITHUB_OUTPUT"
           
   Thread-First:
     runs-on: ubuntu-latest
