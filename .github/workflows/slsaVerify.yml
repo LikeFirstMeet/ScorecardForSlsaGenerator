@@ -57,7 +57,11 @@ jobs:
           distribution: 'corretto'
       
       - name: Run chmod to make gradlew executable
-        run: chmod +x ./gradlew
+        run: |
+          echo "***************************************************************"
+          ls -ll
+          echo "***************************************************************"
+          chmod +x ./gradlew
       
       - name: Build with Gradle
         uses: gradle/gradle-build-action@d23c38fad3e837961b39af2b98b046694927aca4
