@@ -79,15 +79,15 @@ jobs:
 
           # List the artifacts the provenance will refer to.
           cd build/libs
-          files=$(ls sbom-service-${{ env.VERSION }}.war)
+          files=$(ls slsa-generator-${{ env.VERSION }}.war)
           # Generate the subjects (base64 encoded).
           echo "hashes=$(sha256sum $files | base64 -w0)" >> "${GITHUB_OUTPUT}"
       
       - name: Upload artifact
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
-          name: sbom-service-${{ env.VERSION }}.war
-          path: build/libs/sbom-service-${{ env.VERSION }}.war
+          name: slsa-generator-${{ env.VERSION }}.war
+          path: build/libs/slsa-generator-${{ env.VERSION }}.war
           if-no-files-found: error
 
   provenance:
